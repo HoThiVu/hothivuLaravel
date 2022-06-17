@@ -5,6 +5,7 @@ use App\Http\Controllers\Carcontroller;
 use Illuminate\Http\Request;
 // use App\Http\Controllers\Giaiptb1;
 use App\Http\Controllers\Calculatorall;
+use App\Http\Controllers\CalculatorRadion;
 
 // use App\Http\Controllers\Carcontroller;
 
@@ -62,3 +63,12 @@ Route::post('Calculator',[Calculatorall::class,'Tinhtoan'])-> name('Calculator.p
 // Route::get('Calculator',function(){
 //     return view('Calculator');
 // });
+
+
+Route::get('CaculatorRadio',function(){
+    return view('CaculatorRadio');
+});
+Route::post('CaculatorRadio',[CalculatorRadion::class,'Tinhtoan'])->name('CaculatorRadio.post');
+Route::get('ListCar', function () {
+    return view('ListCar');
+});
