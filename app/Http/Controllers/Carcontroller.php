@@ -38,6 +38,36 @@ class Carcontroller extends Controller
     public function store(Request $request)
     {
         //lưu 
+
+        $name ='';
+        if ($request->hasfile('image')){
+            $this ->validate($request,[
+                'image' =>'mimes:jpg,png,gif,jpeg|max:2048'
+            ],[
+                'image.mimes'=>'chi chap nhan file hinh anh',
+                'image.max'=>'chi chap nhan file hinh anh duoi 2MB'
+            ]);
+            $file = $request->file('image');
+            $name = time().'_'.$file->getClineOriginalName();
+            $destinationPath = public_path('image');
+
+            $file ->move($destinationPath,$name);
+        }
+
+        $this->validate($request,[
+            'make'=>'required',
+            'description'=>'required',
+            'model'=>'required',
+            'image'=>'required',
+            'produced_on'=>'required|date'
+        ],[
+            'make.required'=>'ban chua nhap make',
+            'description.required'=>'ban chua nhap mieu ta',
+            'model.required'=>'ban chua nhap model',
+            'image.required'=>'ban chua nhap anh',
+            'produced_on.required'=>'ban chua nhap make',   
+            'produced_on.date'=>'ban chua nhap make'
+        ]);
     }
 
     /**
