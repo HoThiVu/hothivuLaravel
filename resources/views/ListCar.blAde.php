@@ -16,8 +16,13 @@
     <title>Document</title>
 </head>
 <body>   
-    @foreach ($cars as $car)
+   
     <h2>DANH SACH XE</h2>
+    <div>
+      @if(Session::has('bạn đã thêm vào thành công'))
+      {{Session::get('bạn đã thêm vào thành công')}}    
+      @endif
+    </div>
     <table class="table table-bordered table-info">
       <thead>
         <tr>
@@ -30,6 +35,7 @@
           <th scope="col">CÔNG CỤ</th>
         </tr>
       </thead>
+      @foreach ($cars as $car)
       <tbody>
         <tr>
           <th scope="row">{{$car['id']}}</th>
@@ -39,11 +45,9 @@
           <td>{{$car['model'] }}</td>
           <td>{{ $car['produced_on']}}</td>
         </tr>
-       
+      
       </tbody>
+      @endforeach
     </table>
-   
-    @endforeach
-
 </body>
 </html>

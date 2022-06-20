@@ -8,8 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h3>FORM THÊM MỚI XE</h3>
-    <button class="btn btn-success"> <a href="{{route('cars.index')}}">Quay lại trang danh sách xe</a></button>
+    <h3>EDIT XE</h3>
+    <button class="btn btn-success"><a href="{{route('cars.index')}}">Quay lại trang danh sách xe</a></button>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -19,35 +19,37 @@
             </ul>
         </div>
     @endif   
-    <form method='POST' enctype='multipart/form-data' action='{{route("cars.store")}}' >
+    <form method='post' enctype='multipart/form-data' action="{{route('cars.update',$car ->id)}}">
         <br>
         <br>
         @csrf
+        @method('put')
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="inputPassword4">Hình ảnh</label>
-            <input type="file" name="image" class="form-control" id="inputPassword4">
+            <img  src="/img/{{isset($car)?$car->image:''}}" width="100px" height="100px">
+            <input type="file" value="{{isset($car)?$car->image:''}}" name="image" class="form-control" id="inputPassword4">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="inputCity">miêu tả</label>
-            <input type="text" name="description"class="form-control" id="inputCity">
+            <input type="text" value="{{isset($car)?$car->description:''}}" name="description"class="form-control" id="inputCity">
           </div>
           <div class="form-group col-md-3">
             <label for="inputCity">tác giả</label>
-            <input type="text" name="model"class="form-control" id="inputCity">
+            <input type="text" value="{{isset($car)?$car->model:''}}" name="model"class="form-control" id="inputCity">
           </div>
           
         </div>
         <div class="form-row">
             <div class="form-group col-md-3">
               <label for="inputCity">diễn viên</label>
-              <input type="text" name="make"class="form-control" id="inputCity">
+              <input type="text" value="{{isset($car)?$car->make:''}}" name="make"class="form-control" id="inputCity">
             </div>
             <div class="form-group col-md-3">
               <label for="inputCity">ngày sinh</label>
-              <input type="date" name="produced_on"class="form-control" id="inputCity">
+              <input type="date"  value="{{isset($car)?$car->produced_on:''}}" name="produced_on"class="form-control" id="inputCity">
             </div>
         </div>
         <div class="row">

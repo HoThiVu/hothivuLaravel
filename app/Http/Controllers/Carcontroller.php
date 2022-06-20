@@ -41,7 +41,7 @@ class Carcontroller extends Controller
         //lưu 
 
         $name ='';  
-        // dd($request->hasfile('image'));
+     
         if ($request->hasfile('image')){
             
             $this ->validate($request,[
@@ -81,7 +81,7 @@ class Carcontroller extends Controller
 
 
 
-        return redirect()->route('cars.index');
+        return redirect()->route('cars.index')->with('thành công', 'bạn đã cập nhật thành công');
     }
 
     /**
@@ -107,6 +107,10 @@ class Carcontroller extends Controller
     public function edit($id)
     {
         //show ra view sửa, 
+        $car=Car::find($id);
+        return view('CarEdit',['car'=>$car]);
+
+        // return view('CarEdit');
     }
 
     /**
@@ -119,6 +123,50 @@ class Carcontroller extends Controller
     public function update(Request $request, $id)
     {
         //request để lấy giá trị từ  các ô input
+
+        
+        $name ='';  
+     
+        if ($request->hasfile('image')){
+            
+            $this ->validate($request,[
+                'image' =>'mimes:jpg,png,gif,jpeg|max:4000'
+            ],[
+                'image.mimes'=>'chi chap nhan file hinh anh',
+                'image.max'=>'chi chap nhan file hinh anh duoi 2MB'
+            ]);
+            $file = $request->file('image');
+            $name = time().'_'.$file->getClientOriginalName();
+            $destinationPath = public_path('img');
+
+            $file->move($destinationPath,$name);
+        }
+
+        $this->validate($request,[
+            'make'=>'required',
+            'description'=>'required',
+            'model'=>'required',
+            'produced_on'=>'required|date'
+        ],[
+            'make.required'=>'ban chua nhap make',
+            'description.required'=>'ban chua nhap mieu ta',
+            'model.required'=>'ban chua nhap model',
+            // 'image.required'=>'ban chua nhap anh',
+            'produced_on.required'=>'ban chua nhap make',   
+            'produced_on.date'=>'ban chua nhap make'
+        ]);
+        
+        $car= Car::find($id);
+        $car -> description = $request->description;
+        $car -> make = $request->make;
+        $car -> model = $request->model;
+        $car -> image = $name;
+        $car -> produced_on = $request->produced_on;
+        $car->save();
+
+
+
+        return redirect()->route('cars.index')->with('thành công', 'bạn đã cập nhật thành công');
     }
 
     /**
@@ -130,5 +178,10 @@ class Carcontroller extends Controller
     public function destroy($id)
     {
         //xóa
+
+        Car::find($id)->delete();
+        // $car= Car::find($id);
+  
+        return redirect()->route('cars.index')->with('thành công', 'bạn đã cập nhật thành công');
     }
 }

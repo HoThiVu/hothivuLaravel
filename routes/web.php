@@ -27,6 +27,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::resource('cars',Carcontroller::class);
 
 // route này tương đương với 7 route như sau:
@@ -72,3 +73,9 @@ Route::post('CaculatorRadio',[CalculatorRadion::class,'Tinhtoan'])->name('Cacula
 Route::get('ListCar', function () {
     return view('ListCar');
 });
+
+// ---------------
+Route::get('ex', function () {
+    return view('ex');
+});
+

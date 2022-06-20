@@ -2,95 +2,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">   
-        <!-- Bootstrap CSS -->   
-        
-        <link href="/open-iconic/font/css/open-iconic.css" rel="stylesheet">
-        <title>Hello, world!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="/open-iconic/font/css/open-iconic.css" rel="stylesheet">
-    <title>Document</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADMIN LIST CAR</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    body {
+        color: #566787;
+		background: #f5f5f5;
+		font-family: 'Varela Round', sans-serif;
+		font-size: 13px;
+	}
+    .table-responsive {
+        margin: 30px 0;
+    }
+	.table-wrapper {
+        min-width: 1000px;
+        background: #fff;
+        padding: 20px 25px;
+		border-radius: 3px;
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+	.table-title {
+		padding-bottom: 15px;
+		background: #299be4;
+		color: #fff;
+		padding: 16px 30px;
+		margin: -20px -25px 10px;
+		border-radius: 3px 3px 0 0;
+    }
+    .table-title h2 {
+		margin: 5px 0 0;
+		font-size: 24px;
+	}
+	.table-title .btn {
+		color: #566787;
+		float: right;
+		font-size: 13px;
+		background: #fff;
+		border: none;
+		min-width: 50px;
+		border-radius: 2px;
+		border: none;
+		outline: none !important;
+		margin-left: 10px;
+	}
+	.table-title .btn:hover, .table-title .btn:focus {
+        color: #566787;
+		background: #f2f2f2;
+	}
+	.table-title .btn i {
+		float: left;
+		font-size: 21px;
+		margin-right: 5px;
+	}
+	.table-title .btn span {
+		float: left;
+		margin-top: 2px;
+	}
+    table.table tr th, table.table tr td {
+        border-color: #e9e9e9;
+		padding: 12px 15px;
+		vertical-align: middle;
+    }
+	table.table tr th:first-child {
+		width: 60px;
+	}
+	table.table tr th:last-child {
+		width: 100px;
+	}
+    table.table-striped tbody tr:nth-of-type(odd) {
+    	background-color: #fcfcfc;
+	}
+	table.table-striped.table-hover tbody tr:hover {
+		background: #f5f5f5;
+	}
+    table.table th i {
+        font-size: 13px;
+        margin: 0 5px;
+        cursor: pointer;
+    }	
+    table.table td:last-child i {
+		opacity: 0.9;
+		font-size: 22px;
+        margin: 0 5px;
+    }
+	table.table td a {
+		font-weight: bold;
+		color: #566787;
+		display: inline-block;
+		text-decoration: none;
+	}
+	table.table td a:hover {
+		color: #2196F3;
+	}
+	table.table td a.settings {
+        color: #2196F3;
+    }
+    table.table td a.delete {
+        color: #F44336;
+    }
+    table.table td i {
+        font-size: 19px;
+    }
+	table.table .avatar {
+		border-radius: 50%;
+		vertical-align: middle;
+		margin-right: 10px;
+	}
+	.status {
+		font-size: 30px;
+		margin: 2px 2px 0 0;
+		display: inline-block;
+		vertical-align: middle;
+		line-height: 10px;
+	}
+    .text-success {
+        color: #10c469;
+    }
+    .text-info {
+        color: #62c9e8;
+    }
+    .text-warning {
+        color: #FFC107;
+    }
+    .text-danger {
+        color: #ff5b5b;
+    }
+    .pagination {
+        float: right;
+        margin: 0 0 5px;
+    }
+    .pagination li a {
+        border: none;
+        font-size: 13px;
+        min-width: 30px;
+        min-height: 30px;
+        color: #999;
+        margin: 0 2px;
+        line-height: 30px;
+        border-radius: 2px !important;
+        text-align: center;
+        padding: 0 6px;
+    }
+    .pagination li a:hover {
+        color: #666;
+    }	
+    .pagination li.active a, .pagination li.active a.page-link {
+        background: #03A9F4;
+    }
+    .pagination li.active a:hover {        
+        background: #0397d6;
+    }
+	.pagination li.disabled i {
+        color: #ccc;
+    }
+    .pagination li i {
+        font-size: 16px;
+        padding-top: 6px
+    }
+    .hint-text {
+        float: left;
+        margin-top: 10px;
+        font-size: 13px;
+    }
+</style>
+<script>
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 </head>
-<body class="justify-content center">   
-  <h4>DANH SÁCH XE</h4>
-  
-  <button class="btn btn-info"><a href="{{route('cars.create')}}">ADD</a></button>
-    @foreach ($cars as $car)
-
-
-{{-- <link  href="">Quay lại trang danh sách xe --}}
-    <table class="table table-bordered table-success">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>ẢNH</th>
-          <th>MIÊU TẢ</th>
-          <th >TÁC GIẢ</th>
-          <th >DIỄN VIÊN</th>
-          <th >NGÀY SINH</th>
-          <th >CÔNG CỤ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">{{$car['id']}}</th>
-          <td> <img src="/img/{{$car['image'] }}" width="200px" height="300px"></td>
-          <td>{{ $car['description']}}</td>
-          <td>{{$car['make'] }}</td>
-          <td>{{$car['model'] }}</td>
-          <td>{{ $car['produced_on']}}</td>
-          <td>
-            <a href="http://">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-              </svg>
-            </a>
-           
-            <a href="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-              </svg>
-            </a>
-            
-          </td>
-        </tr>
-       
-      </tbody>
-    </table>
-    {{-- <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img src="/img/{{$car['image'] }}" width="200px" height="300px">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{$car['id']}}</h5>
-              <p class="card-text">{{ $car['description']}}</p>
-         
-            <p class="card-text"><small class="text-muted"> {{$car['make'] }}</small></p>
-              <p class="card-text"><small class="text-muted">{{$car['model'] }}</small></p>
-              <p class="card-text"><small class="text-muted">{{ $car['produced_on']}}</small></p>
+<body>
+<div class="container">
+  <div>
+    @if(Session::has('thành công'))
+    {{Session::get('thành công')}}    
+    @endif
+  </div>
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-xs-5">
+                        <h2>Admin <b>ListCar</b></h2>
+                    </div>
+                    <div class="col-xs-7">
+                      <a href="{{route('cars.create')}}" class="btn btn-primary" ><i class="material-icons">&#xE147;</i><span>Add New User</span></a>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div> --}}
-    {{-- <h1>Car{{$car['id']}}</h1>
-    <img src="/img/{{$car['image'] }}" alt="" width="200px" height="300px">
-    <ul>
-        <li>Make: {{$car['make'] }}</li>
-        <li>Model: {{$car['model'] }}</li>
-        <li>Produced on:{{ $car['produced_on']}}</li>
-        <li>Discription:{{ $car['description']}}</li>
-    </ul> --}}
-    @endforeach
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ẢNH</th>
+                        <th>MIÊU TẢ</th>
+                        <th>TÁC GIẢ</th>
+                        <th>DIỄN VIÊN</th>
+                        <th>NGÀY SINH</th>
+                        <th>CÔNG CỤ</th>
+                    </tr>
+                </thead>
+                @foreach ($cars as $car)
+                <tbody>
+                    <form action="{{route('cars.destroy',$car ->id)}}" method="post">
+                        @csrf
+                        @method('delete')
+                    <tr>
+                        <td>{{$car['id']}}</td>
+                        <td><a href="#"><img src="/img/{{$car['image'] }}"  width="100px" height="100px" class="avatar" alt="Avatar"></a></td>
+                        <td>{{ $car['description']}}</td>                        
+                        <td>{{$car['make'] }}</td>
+                       <td>{{$car['model'] }}</td>
+                       <td>{{ $car['produced_on']}}</td>
+                       <td>
+                        
+                        <a href="{{route('cars.edit',$car->id)}}" class="settings" title="Settings"  data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+ 
+                        <button type="submit"  class="delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></button>
+                    </td>
+                    </tr>
+                </form>
 
+                </tbody>
+                @endforeach
+            </table>
+    
+        </div>
+    </div>        
+</div>     
 </body>
 </html>
