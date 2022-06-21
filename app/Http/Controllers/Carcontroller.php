@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Models\Car;
 class Carcontroller extends Controller
 {
@@ -164,11 +164,8 @@ class Carcontroller extends Controller
         $car -> produced_on = $request->produced_on;
         $car->save();
 
-
-
         return redirect()->route('cars.index')->with('thành công', 'bạn đã cập nhật thành công');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -179,9 +176,16 @@ class Carcontroller extends Controller
     {
         //xóa
 
-        Car::find($id)->delete();
-        // $car= Car::find($id);
-  
-        return redirect()->route('cars.index')->with('thành công', 'bạn đã cập nhật thành công');
+        // Car::find($id)->delete();
+        $car= Car::find($id);
+
+        $imgLink = public_path('img\\').$car->image; 
+            
+        if(File::exists($imgLink)) {
+            File::delete($imgLink);
+        }
+         $car->delete();
+       
+        return redirect()->route('cars.index');
     }
 }

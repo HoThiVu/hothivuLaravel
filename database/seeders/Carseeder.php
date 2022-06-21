@@ -18,7 +18,7 @@ class Carseeder extends Seeder
      */
     public function run()
     {
-        Car::factory() -> count(5)-> create();
+        Car::factory() -> count(10)-> create();
         // DB::table('cars')->insert([
         //     'id' => Str::random(10),
 
