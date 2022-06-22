@@ -73,6 +73,14 @@ Route::post('CaculatorRadio',[CalculatorRadion::class,'Tinhtoan'])->name('Cacula
 Route::get('ListCar', function () {
     return view('ListCar');
 });
+// ----------------------------------------------------------------
+
+
+Route::post('CaculatorRadio',[CalculatorRadion::class,'Tinhtoan'])->name('CaculatorRadio.post');
+Route::get('ListCar', function () {
+    return view('ListCar');
+});
+
 
 // ---------------
 Route::get('ex', function () {

@@ -30,9 +30,29 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="inputPassword4">Hình ảnh</label>
-                <img src="/img/{{ isset($car) ? $car->image : '' }}" width="100px" height="100px">
-                <input type="file" value="{{ isset($car) ? $car->image : '' }}" name="image" class="form-control"
-                    id="inputPassword4">
+                <img src="/img/{{ isset($car) ? $car->image : '' }}" width="100px" height="100px" id="preview-img">
+                <input type="file" name="image" class="form-control"
+                    onchange="changeImage(event)" required>
+                {{-- <img src="/img/{{ isset($car) ? $car->image : '' }}" alt="" id="preview-img" /> --}}
+                <script>
+                    // const chaneImage = (event) => {
+                    //     const preImg = document.getElementById("preview-img")
+                    //     const file = event.target.files[0]
+                    //     preImg.src = createObjectURL(file)
+                    //     preImg.onload = () => {
+                    //         URL.revokeObjectURL(preImg.src)
+                    //     }
+                    // }
+
+                    const changeImage = (e) => {
+                  //  console.log('change')
+                   var imgEle = document.getElementById('preview-img')
+                   imgEle.src = URL.createObjectURL(e.target.files[0])
+                   imgEle.onload = () => {
+                    RL.revokeObjectURL(output.src)
+                   }
+               }
+                </script>
             </div>
         </div>
         <div class="form-row">
@@ -63,7 +83,7 @@
         <div class="row">
             <button type="submit" class="btn btn-primary">SAVE</button>
         </div>
-        
+
     </form>
 </body>
 

@@ -264,11 +264,12 @@
                                     <td>{{ $car['model'] }}</td>
                                     <td>{{ $car['produced_on'] }}</td>
                                     <td>
-                                        <a href="{{ route('cars.edit', $car->id) }}" class="settings" title="Settings"
-                                            data-toggle="tooltip" ><i class="material-icons">&#xE8B8;</i></a>
-                                        <button type="submit" onclick="return confirm('chắc chắn bạn muons xóa không')" class="settings"
-                                            title="Settings" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE5C9;</i></button>
+                                        <a href="{{ route('cars.edit', $car->id) }}" class="settings" title="EDIT"
+                                            data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+                                        <button type="submit" onclick="return confirm('chắc chắn bạn muons xóa không')"
+                                            class="settings" title="delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE5C9;</i>
+                                        </button>
                                     </td>
                                 </tr>
                             </form>
@@ -276,10 +277,11 @@
                         </tbody>
                     @endforeach
                 </table>
-               
+
             </div>
         </div>
     </div>
+
 </body>
 
 </html>

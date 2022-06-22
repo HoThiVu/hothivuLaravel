@@ -15,6 +15,7 @@ class Carcontroller extends Controller
     {
         // hiện thị ra toàn bộ sản phẩm
         $cars=Car::all();
+        // dd($cars);
         return view('index',['cars'=>$cars]);
 
     }
@@ -174,6 +175,7 @@ class Carcontroller extends Controller
      */
     public function destroy($id)
     {
+
         //xóa
 
         // Car::find($id)->delete();
@@ -186,6 +188,6 @@ class Carcontroller extends Controller
         }
          $car->delete();
        
-        return redirect()->route('cars.index');
+        return redirect()->route('cars.index')->with('thành công', 'bạn đã xoas thành công');
     }
 }
