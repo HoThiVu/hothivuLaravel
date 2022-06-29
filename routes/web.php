@@ -87,3 +87,7 @@ Route::get('ex', function () {
     return view('ex');
 });
 
+// -------------------
+// Lấy danh sách sản phẩm
+// Route::get('cars', 'Api\CarController@index')->name('Cars.index');
+

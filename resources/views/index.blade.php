@@ -243,10 +243,11 @@
                         <tr>
                             <th>ID</th>
                             <th>ẢNH</th>
-                            <th>MIÊU TẢ</th>
-                            <th>TÁC GIẢ</th>
-                            <th>DIỄN VIÊN</th>
-                            <th>NGÀY SINH</th>
+                            {{-- <th>MIÊU TẢ</th> --}}
+                            <th>Hãng xe</th>
+                            <th>MÀU XE</th>
+                            <th>Tên nsx</th>
+                            <th>NGÀY SẢN XUẤT</th>
                             <th>CÔNG CỤ</th>
                         </tr>
                     </thead>
@@ -259,9 +260,10 @@
                                     <td>{{ $car['id'] }}</td>
                                     <td><a href="#"><img src="/img/{{ $car['image'] }}" width="100px"
                                                 height="100px" class="avatar" alt="Avatar"></a></td>
-                                    <td>{{ $car['description'] }}</td>
-                                    <td>{{ $car['make'] }}</td>
-                                    <td>{{ $car['model'] }}</td>
+                                    {{-- <td>{{ $car['description'] }}</td> --}}
+                                    <td>{{ $car['hãng'] }}</td>
+                                    <td>{{ $car['màu'] }}</td>
+                                    <td>{{ $car->manufacture->name}}</td>
                                     <td>{{ $car['produced_on'] }}</td>
                                     <td>
                                         <a href="{{ route('cars.edit', $car->id) }}" class="settings" title="EDIT"

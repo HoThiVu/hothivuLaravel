@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-// use App\Models\CarManufacture;
+use App\Models\Car;
  
 
 class Carseeder extends Seeder
@@ -18,8 +18,7 @@ class Carseeder extends Seeder
      */
     public function run()
     {
-        // Car::factory() -> count(10)-> create();
-        // CarManufacture::factory() -> count(10)-> create();
+        Car::factory() -> count(10)-> create();
         // DB::table('cars')->insert([
         //     'id' => Str::random(10),
 

@@ -32,45 +32,48 @@
                 <input type="file" name="image" class="form-control" id="inputPassword4"
                     onchange="changeImage(event)" required>
                 <img src="/img/{{ isset($car) ? $car->image : '' }}" alt="" id="preview-img" />
-
                 <script>
-                    // const chaneImage = (event) => {
-                    //     const preImg = document.getElementById("preview-img")
-                    //     const file = event.target.files[0]
-                    //     preImg.src = createObjectURL(file)
-                    //     preImg.onload = () => {
-                    //         URL.revokeObjectURL(preImg.src)
-                    //     }
-                    // }
                     const changeImage = (e) => {
-                  //  console.log('change')
-                   var imgEle = document.getElementById('preview-img')
-                   imgEle.src = URL.createObjectURL(e.target.files[0])
-                   imgEle.onload = () => {
-                    RL.revokeObjectURL(output.src)
-                   }
-               }
+                        var imgEle = document.getElementById('preview-img')
+                        imgEle.src = URL.createObjectURL(e.target.files[0])
+                        imgEle.onload = () => {
+                            RL.revokeObjectURL(output.src)
+                        }
+                    }
                 </script>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-3">
-                <label for="inputCity">miêu tả</label>
-                <input type="text" name="description"class="form-control" id="inputCity">
+                <label for="inputCity">hãng xe</label>
+                <input type="text"name="hãng"class="form-control" id="inputCity">
             </div>
             <div class="form-group col-md-3">
-                <label for="inputCity">tác giả</label>
-                <input type="text" name="model"class="form-control" id="inputCity">
+                <label for="inputCity">màu xe</label>
+                <input type="text" name="màu"class="form-control" id="inputCity">
             </div>
 
         </div>
         <div class="form-row">
             <div class="form-group col-md-3">
-                <label for="inputCity">diễn viên</label>
-                <input type="text" name="make"class="form-control" id="inputCity">
+                <label for="inputCity">Chọn Tên nhà sx</label>
+
+                {{-- <input type="text" value="{{ isset($car) ?$car->manufacture->name : '' }}" name="name"class="form-control"
+                    id="inputCity"> --}}
+
+                <select name="name" id="cars">
+                    {{-- <option value="{{ isset($car) ?$car->manufacture->name : '' }}"></option>
+                      <option value="{{ isset($car) ?$car->manufacture->name : '' }}"></option>
+                      <option value="{{ isset($car) ?$car->manufacture->name : '' }}"></option>
+                      <option value="{{ isset($car) ?$car->manufacture->name : '' }}"></option> --}}
+                    @foreach ($list as $item)
+                        <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                    @endforeach
+                </select>
+                <br><br>
             </div>
             <div class="form-group col-md-3">
-                <label for="inputCity">ngày sinh</label>
+                <label for="inputCity">ngày sx</label>
                 <input type="date" name="produced_on"class="form-control" id="inputCity">
             </div>
         </div>

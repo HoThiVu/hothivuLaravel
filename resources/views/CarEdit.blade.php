@@ -31,8 +31,7 @@
             <div class="form-group col-md-3">
                 <label for="inputPassword4">Hình ảnh</label>
                 <img src="/img/{{ isset($car) ? $car->image : '' }}" width="100px" height="100px" id="preview-img">
-                <input type="file" name="image" class="form-control"
-                    onchange="changeImage(event)" required>
+                <input type="file" name="image" class="form-control" onchange="changeImage(event)" required>
                 {{-- <img src="/img/{{ isset($car) ? $car->image : '' }}" alt="" id="preview-img" /> --}}
                 <script>
                     // const chaneImage = (event) => {
@@ -45,37 +44,42 @@
                     // }
 
                     const changeImage = (e) => {
-                  //  console.log('change')
-                   var imgEle = document.getElementById('preview-img')
-                   imgEle.src = URL.createObjectURL(e.target.files[0])
-                   imgEle.onload = () => {
-                    RL.revokeObjectURL(output.src)
-                   }
-               }
+                        //  console.log('change')
+                        var imgEle = document.getElementById('preview-img')
+                        imgEle.src = URL.createObjectURL(e.target.files[0])
+                        imgEle.onload = () => {
+                            RL.revokeObjectURL(output.src)
+                        }
+                    }
                 </script>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-3">
-                <label for="inputCity">miêu tả</label>
-                <input type="text" value="{{ isset($car) ? $car->description : '' }}"
-                    name="description"class="form-control" id="inputCity">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="inputCity">tác giả</label>
-                <input type="text" value="{{ isset($car) ? $car->model : '' }}" name="model"class="form-control"
+                <label for="inputCity">hãng xe</label>
+                <input type="text" value="{{ isset($car) ? $car->hãng : '' }}" name="hãng"class="form-control"
                     id="inputCity">
             </div>
-
+            <div class="form-group col-md-3">
+                <label for="inputCity">màu xe</label>
+                <input type="text" value="{{ isset($car) ? $car->màu : '' }}" name="màu"class="form-control"
+                    id="inputCity">
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-3">
-                <label for="inputCity">diễn viên</label>
-                <input type="text" value="{{ isset($car) ? $car->make : '' }}" name="make"class="form-control"
-                    id="inputCity">
+                <label for="inputCity">Chọn Tên nhà sx</label>
+                {{-- <input type="text" value="{{ isset($car) ?$car->manufacture->name : '' }}" name="name"class="form-control"
+                    id="inputCity"> --}}
+                <select name="name" id="cars">
+                    @foreach ($list as $item)
+                        <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                    @endforeach
+                </select>
+                <br><br>
             </div>
             <div class="form-group col-md-3">
-                <label for="inputCity">ngày sinh</label>
+                <label for="inputCity">ngày sx</label>
                 <input type="date" value="{{ isset($car) ? $car->produced_on : '' }}"
                     name="produced_on"class="form-control" id="inputCity">
             </div>
@@ -83,7 +87,6 @@
         <div class="row">
             <button type="submit" class="btn btn-primary">SAVE</button>
         </div>
-
     </form>
 </body>
 

@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('manufactures', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
+            $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
