@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Car;
 use App\Models\Manufacture;
+
+
 class Carcontroller extends Controller
 {
     /**

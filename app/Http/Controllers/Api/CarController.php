@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Car;
+use Illuminate\Support\Facades\Validator;
+
 class CarController extends Controller
 {
     /**
@@ -33,6 +35,7 @@ class CarController extends Controller
     public function store(Request $request)
     {
         // hàm lưu
+        // dd($request);
         {
             $validation = Validator::make($request->all(),
             [
@@ -56,7 +59,7 @@ class CarController extends Controller
             {
                 $file = $request->file('image');
                 $name=time().'_'.$file->getClientOriginalName();
-                $destinationPath=public_path('car'); //project\public\car, //public_path(): trả về đường dẫn tới thư mục public
+                $destinationPath=public_path('img'); //project\public\car, //public_path(): trả về đường dẫn tới thư mục public
                 $file->move($destinationPath, $name); //lưu hình ảnh vào thư mục public/images/cars
             } 
          
