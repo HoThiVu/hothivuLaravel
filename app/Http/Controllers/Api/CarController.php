@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Car;
+use Illuminate\Support\Facades\File;
+
 use Illuminate\Support\Facades\Validator;
 
 class CarController extends Controller
@@ -100,6 +102,57 @@ class CarController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+         //request để lấy giá trị từ  các ô input
+         $validation = Validator::make($request->all(),
+         [
+             'hãng'=>'required',
+             'màu'=>'required',
+             // 'name'=>'required',
+             'produced_on'=>'required|date',
+             'image'=>'mimes:jpeg,jpg,png,gif|max:10000'
+         ]);
+ 
+         if ($validation->fails()){
+             $response=array('status'=>'error','errors'=>$validation->errors()->toArray()); 
+             return response()->json($response);
+         }
+       
+         $name='';
+            
+         if($request->hasfile('image'))
+         {
+             $file = $request->file('image');
+             $name=time().'_'.$file->getClientOriginalName();
+             $destinationPath=public_path('img'); //project\public\car, //public_path(): trả về đường dẫn tới thư mục public
+             $file->move($destinationPath, $name); //lưu hình ảnh vào thư mục public/images/cars
+         } 
+
+
+         $car= Car::find($id);
+         
+         
+        $imgLink = public_path('img\\').$car->image; 
+            
+        if(File::exists($imgLink)) {
+            File::delete($imgLink);
+        }
+
+         $car -> hãng = $request->hãng;
+         $car -> màu = $request->màu;
+         // $car -> name = $request->name;
+         $car -> image = $name;
+         $car -> produced_on = $request->produced_on;
+         $car->save();
+         
+       
+         if($car) {            
+            return response()->json(["status" => "200", "success" => true, "message" => "car record update successfully", "data" => $car]);
+        }    
+    else {
+            return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to update."]);
+    }
+
     }
 
     /**
@@ -111,5 +164,35 @@ class CarController extends Controller
     public function destroy($id)
     {
         //
+
+        
+        // Car::find($id)->delete();
+        $car= Car::find($id);
+
+        $imgLink = public_path('img\\').$car->image; 
+            
+        if(File::exists($imgLink)) {
+            File::delete($imgLink);
+        }
+         $car->delete();
+         if($car) {            
+            return response()->json(["status" => "200", "success" => true, "message" => "car record update successfully", "data" => $car]);
+        }    
+    else {
+            return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to update."]);
+    }
+
+    }
+
+    public function getSearch(Request $request){
+        $cars=Car::all();
+        $cars_search=Car::where('hãng','like','%'.$request->input('search').'%')->orWhere('màu','like','%'.$request->input('search').'%')->get();
+        //dd($cars_search);
+        if($car) {            
+            return response()->json(["status" => "200", "success" => true, "message" => "car record search successfully", "data" => $car]);
+        }    
+    else {
+            return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to search."]);
+    }
     }
 }
