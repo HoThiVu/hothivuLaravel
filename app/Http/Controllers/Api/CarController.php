@@ -26,6 +26,12 @@ class CarController extends Controller
         else {
             return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! no record found"]);
         }
+
+
+
+        // -----Search
+        // $cars = Search::orderBy('price','ASC')->get();
+        // return response()->json(Search::orderBy('price','ASC')->get());
     }
 
     /**
@@ -90,6 +96,13 @@ class CarController extends Controller
     public function show($id)
     {
         //
+        $car = Car::find($id);
+        if(count($cars) > 0) {
+            return response()->json(["status" => "200", "success" => true, "count" => count($cars), "data" => $cars]);
+        }
+        else {
+            return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! no record found"]);
+        }
     }
 
     /**
@@ -184,15 +197,34 @@ class CarController extends Controller
 
     }
 
-    public function getSearch(Request $request){
-        $cars=Car::all();
-        $cars_search=Car::where('hãng','like','%'.$request->input('search').'%')->orWhere('màu','like','%'.$request->input('search').'%')->get();
-        //dd($cars_search);
-        if($car) {            
-            return response()->json(["status" => "200", "success" => true, "message" => "car record search successfully", "data" => $car]);
-        }    
-    else {
-            return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to search."]);
-    }
+    // public function search($key){
+    //     // $cars=Car::all();
+    //     // $cars_search=Car::where('hãng','like','%'.$request->input('search').'%')->orWhere('màu','like','%'.$request->input('search').'%')->get();
+    //     // //dd($cars_search);
+    //     // return Car::where('hãng','Like',"%key%")->get();
+    //     return $key;
+    // //     if($car) {            
+    // //         return response()->json(["status" => "200", "success" => true, "message" => "car record search successfully", "data" => $car]);
+    // //     }    
+    // // else {
+    // //         return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to search."]);
+    // // }
+    // }
+
+    public function search(Request $request)
+    {
+        // $cars = Car::join('car_mfs', 'car_mfs.id', 'cars.mf_id')
+        //     ->where('name', 'like', '%' . $request->search . '%')
+        //     ->select('car_mfs.mf_name as name_mfs', 'cars.*')
+        //     ->get();
+             $cars = Car::where('hãng','like','%' .$request->search. '%')
+                ->get();
+                if($cars) {            
+                    return response()->json(["status" => "200", "success" => true, "message" => "car record update successfully", "data" => $cars]);
+                }    
+            else {
+                    return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to update."]);
+            }
+        
     }
 }
