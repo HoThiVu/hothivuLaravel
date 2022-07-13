@@ -25,3 +25,4 @@ Route::apiResource('cars',CarController::class);
 // Route::apiResource('search',CarController::class);
 Route::get('/show', [CarController::class, 'search']);
 // Route::get('/show', [CarController::class, 'timkiemgia']);
+Route::get('/category_id', [CarController::class,'list']);

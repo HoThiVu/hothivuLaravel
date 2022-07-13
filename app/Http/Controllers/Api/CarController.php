@@ -1,13 +1,12 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Car;
+// use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-
 use Illuminate\Support\Facades\Validator;
-
 class CarController extends Controller
 {
     /**
@@ -25,8 +24,6 @@ class CarController extends Controller
         else {
             return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! no record found"]);
         }
-
-
 
         // -----Search
         // $cars = Search::orderBy('price','ASC')->get();
@@ -210,12 +207,6 @@ class CarController extends Controller
 
     public function search(Request $request)
     {
-        // $cars = Car::join('car_mfs', 'car_mfs.id', 'cars.mf_id')
-        //     ->where('name', 'like', '%' . $request->search . '%')
-        //     ->select('car_mfs.mf_name as name_mfs', 'cars.*')
-        //     ->get();
-
-
              $cars = Car::where('hãng','like','%'.$request->search. '%')
              ->orWhere('màu','like','%'.$request->search)
             ->get();
@@ -227,25 +218,17 @@ class CarController extends Controller
                     return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to update."]);
             }
 
-            // $searchterm = $request->input('query');
-            // $searchResults = (new Search())
         
     }
 
- public function countt(){
-//     SELECT COUNT(*) AS so_luong_sinh_vien_nam
-// FROM sinh_vien
-// WHERE Gender = 'Nam';
-$cars = Car::where('hãng','like','cơm chiên'.$request->countt. '%')
-->orWhere('màu','like','%'.$request->countt)
-->get();
-   // ->get();
-   if($cars) {            
-       return response()->json(["status" => "200", "success" => true, "message" => "car record update successfully", "data" => $cars]);
-   }    
-else {
-       return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to update."]);
-}
- }
+    public function list(){
+        $cars = DB::table('cars')->select(DB::raw('hãng,count(hãng) as quantity'))->groupBy('hãng')->get();
+        if(count($cars) > 0) {
+            return response()->json(["status" => "200", "success" => true, "count" => count( $cars), "data" =>  $cars]);
+        }
+        else {
+            return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! no record found"]);
+        }
+    }
 
 }
