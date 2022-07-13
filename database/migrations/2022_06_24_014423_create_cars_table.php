@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('hãng');
             $table->string('image');
             $table->date('produced_on');
-            // $table->unsignedInteger('manufactures_id');
-            // $table->foreign('manufactures_id')
-            // ->references('id')->on('manufactures')
-            // ->onUpdate('cascade')
-            // ->onDelete('cascade');
+            $table->unsignedInteger('manufactures_id');
+            $table->foreign('manufactures_id')
+            ->references('id')->on('manufactures')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -12,10 +12,10 @@ class ManufactureSeeder extends Seeder
      *
      * @return void
      */
-    // public function run()
-    // {
-    //     //
-    //     \App\Models\Manufacture::factory(10)->create();
+    public function run()
+    {
+        //
+        \App\Models\Manufacture::factory(10)->create();
 
-    // }
+    }
 }

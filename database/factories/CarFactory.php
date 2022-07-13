@@ -21,7 +21,7 @@ class CarFactory extends Factory
             'image' => ''.rand(1,5).'.jpg',
             'màu' => $this->faker->paragraph(),
             'hãng' => $this->faker->name(),
-            // 'manufactures_id' =>''.rand(1,10),
+            'manufactures_id' =>''.rand(1,10),
             'produced_on' => now(),
             // 'manufacturer_id' =>enableForeignKeyConstraints(),
             // 'email_verified_at' => now(),

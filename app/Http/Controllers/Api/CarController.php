@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Car;
@@ -156,9 +155,7 @@ class CarController extends Controller
          // $car -> name = $request->name;
          $car -> image = $name;
          $car -> produced_on = $request->produced_on;
-         $car->save();
-         
-       
+         $car->save();       
          if($car) {            
             return response()->json(["status" => "200", "success" => true, "message" => "car record update successfully", "data" => $car]);
         }    
@@ -217,14 +214,38 @@ class CarController extends Controller
         //     ->where('name', 'like', '%' . $request->search . '%')
         //     ->select('car_mfs.mf_name as name_mfs', 'cars.*')
         //     ->get();
-             $cars = Car::where('hãng','like','%' .$request->search. '%')
-                ->get();
+
+
+             $cars = Car::where('hãng','like','%'.$request->search. '%')
+             ->orWhere('màu','like','%'.$request->search)
+            ->get();
+                // ->get();
                 if($cars) {            
                     return response()->json(["status" => "200", "success" => true, "message" => "car record update successfully", "data" => $cars]);
                 }    
             else {
                     return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to update."]);
             }
+
+            // $searchterm = $request->input('query');
+            // $searchResults = (new Search())
         
     }
+
+ public function countt(){
+//     SELECT COUNT(*) AS so_luong_sinh_vien_nam
+// FROM sinh_vien
+// WHERE Gender = 'Nam';
+$cars = Car::where('hãng','like','cơm chiên'.$request->countt. '%')
+->orWhere('màu','like','%'.$request->countt)
+->get();
+   // ->get();
+   if($cars) {            
+       return response()->json(["status" => "200", "success" => true, "message" => "car record update successfully", "data" => $cars]);
+   }    
+else {
+       return response()->json(["status" => "failed", "success" => false, "message" => "Whoops! failed to update."]);
+}
+ }
+
 }
