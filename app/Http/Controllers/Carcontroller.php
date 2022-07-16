@@ -43,7 +43,6 @@ class Carcontroller extends Controller
     public function store(Request $request)
     {
         //lưu 
-
         $name ='';  
      
         if ($request->hasfile('image')){
@@ -200,6 +199,6 @@ class Carcontroller extends Controller
         }
          $car->delete();
        
-        return redirect()->route('cars.index')->with('thành công', 'bạn đã xoas thành công');
+        return redirect()->route('cars.index')->with('thành công', 'bạn đã xoa thành công');
     }
 }
