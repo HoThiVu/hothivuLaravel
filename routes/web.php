@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // use App\Http\Controllers\Giaiptb1;
 use App\Http\Controllers\Calculatorall;
 use App\Http\Controllers\CalculatorRadion;
+use App\Http\Controllers\PageController;
 
 // use App\Http\Controllers\Carcontroller;
 
@@ -65,14 +66,15 @@ Route::get('ListCar', function () {
 
 
 // ---------------
-Route::get('/', function () {
-    return view('ban hang.index');
-});
-Route::get('/detail', function () {
-    return view('ban hang.detail');
-});
-
-
+// Route::get('/', function () {
+//     return view('ban hang.index');
+// });
+// Route::get('/detail', function () {
+//     return view('ban hang.detail');
+// });
+Route::get('/', [PageController::class , 'getIndex']);
+Route::get('/add-to-cart/{id}', [PageController::class , 'addToCart'])->name('addtocart'); //lien ket voi nut gio hang de them sp vao giop hang
+Route::get('/type/{id}',[PageController::class,'productType'])->name('productType');
 // -------------------
 // Lấy danh sách sản phẩm
 // Route::get('cars', 'Api\CarController@index')->name('Cars.index');
