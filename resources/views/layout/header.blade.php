@@ -11,7 +11,7 @@
                 <ul class="top-details menu-beta l-inline">
                     <li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li>
                     <li><a href="#">Đăng kí</a></li>
-                    <li><a href="#">Đăng nhập</a></li>
+                    <li><a href="{{route('login')}}">Đăng nhập</a></li>
                 </ul>
             </div>
             <div class="clearfix"></div>
@@ -32,24 +32,27 @@
                         <button class="fa fa-search" type="submit" id="searchsubmit"></button>
                     </form>
                 </div>
-{{-- 
+
                 <div class="beta-comp">
-                    @if (Session::has('cart'))
+                    {{-- @if (Session::has('cart')) --}}
                         <div class="cart">
                             <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng
-                                (@if (Session::has('cart'))
+                                {{-- (@if (Session::has('cart'))
                                     {{ Session('cart')->totalQty }}
-                                @else
+                                @else --}}
                                     Trong
-                                @endif)
+                                {{-- @endif) --}}
                                 <i class="fa fa-chevron-down"></i>
                             </div>
                             <div class="beta-dropdown cart-body">
-                                @foreach ($productCarts as $product)
-                                    <div class="cart-item" id="cart-item{{ $product['item']['id'] }}">
+                                {{-- @foreach ($productCarts as $product) --}}
+                                    <div class="cart-item" 
+                                    {{-- id="cart-item{{ $product['item']['id'] }}" --}}
+                                    >
                                         <div class="media">
                                             <a class="pull-left" href="#">
-                                                <img src="source/image/product/{{ $product['item']['image'] }}"
+                                                <img 
+                                                {{-- src="source/image/product/{{ $product['item']['image'] }}" --}}
                                                     alt="">
                                             </a>
                                             <div class="media-body">
@@ -58,7 +61,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                {{-- @endforeach --}}
 
                                 <div class="cart-caption">
                                     <div class="cart-total text-right">Tổng tiền: <span
@@ -73,8 +76,8 @@
                                 </div>
                             </div>
                         </div> <!-- .cart -->
-                    @endif
-                </div> --}}
+                    {{-- @endif --}}
+                </div>
             </div>
             <div class="clearfix"></div>
         </div> <!-- .container -->

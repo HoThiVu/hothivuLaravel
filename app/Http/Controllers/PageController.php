@@ -32,6 +32,7 @@ public function getLienHe(){
         $sp_khac =  Product::where ('id_type','<>',$type)->paginate(3);
         return view ('banhang.loai-san-pham',compact('sp_theoloai', 'loai_sp', 'sp_khac'));
     }
+
 //thêm 1 sản phẩm có id cụ thể vào model cart rồi lưu dữ liệu của model cart vào 1 session có tên cart (session được truy cập bằng thực thể Request)
     public function addToCart(Request $request,$id){
         $product = Product::find($id);
@@ -42,8 +43,28 @@ public function getLienHe(){
         return redirect()->back();
     }
 
-    public function getChiTietSP(){
+    public function getChiTietSP( Request $req){
         $chitietSP = Product::where('id',$req->id)->first();
-        return view('banhang.detail',compact('sanpham'));
+        $sp_tuongtu = Product::where('id_type',$chitietSP ->id_type)->paginate(3);
+        $sp_sale =  Product::where ('id',$req->id)->get();
+        return view('banhang.detail',compact('chitietSP','sp_tuongtu','sp_sale'));
     }
+
+    public function getLogin(){
+        return view('banhang.login');
+    }
+    public function getSingUp(){
+        return view('banhang.singup');
+    } 
+    
+    // public function postSingUp(Request $req){
+    //     $this->validate(
+    //         [
+    //         'email'=>'required|email|unique,email',
+    //         'password  '=>'required|min:6|max|20',
+    //     ],
+    //     [
+
+    //     ])
+    // }
 }

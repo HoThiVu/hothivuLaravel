@@ -78,7 +78,13 @@ Route::get('/add-to-cart/{id}', [PageController::class , 'addToCart'])->name('ad
 Route::get('/type/{id}', [PageController::class , 'getLoaiSp']);
 Route::get('/lienhe', [PageController::class , 'getLienHe']);
 Route::get('/gioithieu', [PageController::class , 'getGioiThieu']);
-Route::get('/chi-tiet-sp/{id}', [PageController::class , 'getChiTietSP']);
+Route::get('/chi-tiet-sp/{id}', [PageController::class , 'getChiTietSP'])->name('chitietsanpham');
+Route::get('/login', [PageController::class , 'getLogin'])->name('login');
+
+Route::get('/singup', [PageController::class , 'getSingUp'])->name('singup');
+Route::post('/singup', [PageController::class , 'postSingUp'])->name('singup.post');
+
+
 // -------------------
 // Lấy danh sách sản phẩm
 // Route::get('cars', 'Api\CarController@index')->name('Cars.index');
