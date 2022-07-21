@@ -72,9 +72,13 @@ Route::get('ListCar', function () {
 // Route::get('/detail', function () {
 //     return view('ban hang.detail');
 // });
-Route::get('/', [PageController::class , 'getIndex']);
+Route::get('/', [PageController::class , 'getIndex'])->name('index');
 Route::get('/add-to-cart/{id}', [PageController::class , 'addToCart'])->name('addtocart'); //lien ket voi nut gio hang de them sp vao giop hang
-Route::get('/type/{id}',[PageController::class,'productType'])->name('productType');
+// Route::get('/type/{id}',[PageController::class,'productType'])->name('productType');
+Route::get('/type/{id}', [PageController::class , 'getLoaiSp']);
+Route::get('/lienhe', [PageController::class , 'getLienHe']);
+Route::get('/gioithieu', [PageController::class , 'getGioiThieu']);
+Route::get('/chi-tiet-sp/{id}', [PageController::class , 'getChiTietSP']);
 // -------------------
 // Lấy danh sách sản phẩm
 // Route::get('cars', 'Api\CarController@index')->name('Cars.index');

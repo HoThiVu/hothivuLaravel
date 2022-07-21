@@ -28,19 +28,23 @@ class AppServiceProvider extends ServiceProvider
     {
         
         // Paginator::useBootstrap();
-        View::composer(['layout.header','banhang.product_type'],function($view){
-            $pro_types=ProductType::all();
-            $view->with(compact('pro_types'));
+        // View::composer(['layout.header','banhang.product_type'],function($view){
+        //     $pro_types=ProductType::all();
+        //     $view->with(compact('pro_types'));
+        // });
+        view()->composer('layout.header', function ($view) {
+            $loai_sp = ProductType::all();
+            $view->with('loai_sp', $loai_sp);
         });
 
-        View::composer(['layout.header','banhang.checkout'],function($view){
-            if(Session('cart')){
-                $oldCart=Session::get('cart'); //session cart được tạo trong method addToCart của PageController
-                $cart=new Cart($oldCart);
-                $view->with(['cart'=>Session::get('cart'),'productCarts'=>$cart->items,
-                'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
-            }
-        });
+        // View::composer(['layout.header','banhang.checkout'],function($view){
+        //     if(Session('cart')){
+        //         $oldCart = Session::get('cart'); //session cart được tạo trong method addToCart của PageController
+        //         $cart = new Cart($oldCart);
+        //         $view->with(['cart'=>Session::get('cart'),'productCarts'=>$cart->items,
+        //         'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
+        //     }
+        // });
 
     }
 }
