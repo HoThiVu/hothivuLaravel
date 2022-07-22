@@ -9,9 +9,13 @@
             </div>
             <div class="pull-right auto-width-right">
                 <ul class="top-details menu-beta l-inline">
-                    <li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li>
-                    <li><a href="#">Đăng kí</a></li>
+                    @if(Auth::check())
+                    <li><a href="">Hello {{Auth::user()->name}}</a></li>
+                    {{-- <li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li> --}}
+                    @else
+                    <li><a href="{{route('singup')}}">Đăng kí</a></li>
                     <li><a href="{{route('login')}}">Đăng nhập</a></li>
+                    @endif
                 </ul>
             </div>
             <div class="clearfix"></div>
@@ -34,50 +38,40 @@
                 </div>
 
                 <div class="beta-comp">
-                    {{-- @if (Session::has('cart')) --}}
-                        <div class="cart">
-                            <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng
-                                {{-- (@if (Session::has('cart'))
-                                    {{ Session('cart')->totalQty }}
-                                @else --}}
-                                    Trong
-                                {{-- @endif) --}}
-                                <i class="fa fa-chevron-down"></i>
-                            </div>
-                            <div class="beta-dropdown cart-body">
-                                {{-- @foreach ($productCarts as $product) --}}
-                                    <div class="cart-item" 
-                                    {{-- id="cart-item{{ $product['item']['id'] }}" --}}
-                                    >
-                                        <div class="media">
-                                            <a class="pull-left" href="#">
-                                                <img 
-                                                {{-- src="source/image/product/{{ $product['item']['image'] }}" --}}
-                                                    alt="">
-                                            </a>
-                                            <div class="media-body">
-                                                <span class="cart-item-options">Size: XS; Colar: Navy</span>
-                                                <span class="cart-item-amount">1*<span>$49.50</span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {{-- @endforeach --}}
-
-                                <div class="cart-caption">
-                                    <div class="cart-total text-right">Tổng tiền: <span
-                                            class="cart-total-value">$34.55</span></div>
-                                    <div class="clearfix"></div>
-
-                                    <div class="center">
-                                        <div class="space10">&nbsp;</div>
-                                        <a href="checkout.html" class="beta-btn primary text-center">Đặt hàng <i
-                                                class="fa fa-chevron-right"></i></a>
+                    @if(Session::has('cart'))
+                    <div class="cart">
+                        <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng ({{ Session::has('cart')?Session('cart')->totalQty:'Trống'}}) <i class="fa fa-chevron-down"></i></div>
+                        
+                        <div class="beta-dropdown cart-body">
+                            @foreach($productCarts as $product)
+                            <div class="cart-item">
+                                <a class="cart-item-delete" href="{{ route('xoagiohang', $product['item']['id'] )}}"><i class="fa fa-times"></i></a>
+                                <div class="media">
+                                    <a class="pull-left" href="#"><img src="source/image/product/{{ $product['item']['image'] }}" alt=""></a>
+                                    <div class="media-body">
+                                        <span class="cart-item-title">{{ $product['item']['name'] }}</span>
+                                        <span class="cart-item-amount">{{ $product['qty'] }}*<span>
+                                        {{ $product['item']['promotion_price']==0?
+                                        number_format($product['item']['unit_price']):
+                                            number_format($product['item']['promotion_price']) }}</span></span>
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- .cart -->
-                    {{-- @endif --}}
-                </div>
+                            @endforeach
+                            <div class="cart-caption">
+                                <div class="cart-total text-right">Subtotal: <span class="cart-total-value">{{ number_format(Session('cart')->totalPrice)}}đ</span></div>
+                              
+                                <div class="clearfix"></div>
+            
+                                <div class="center">
+                                    <div class="space10">&nbsp;</div>
+                                    <a href="{{ route('checkout')}}" class="beta-btn primary text-center">Checkout <i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- .cart -->
+                @endif     
+                </div>    
             </div>
             <div class="clearfix"></div>
         </div> <!-- .container -->

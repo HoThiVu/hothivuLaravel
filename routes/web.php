@@ -73,16 +73,26 @@ Route::get('ListCar', function () {
 //     return view('ban hang.detail');
 // });
 Route::get('/', [PageController::class , 'getIndex'])->name('index');
+
 Route::get('/add-to-cart/{id}', [PageController::class , 'addToCart'])->name('addtocart'); //lien ket voi nut gio hang de them sp vao giop hang
 // Route::get('/type/{id}',[PageController::class,'productType'])->name('productType');
-Route::get('/type/{id}', [PageController::class , 'getLoaiSp']);
+Route::get('del-cart/{id}', [PageController::class, 'getDelItemCart'])->name('xoagiohang');
+
+
+Route::get('/checkout', [PageController::class , 'getCheckout'])->name('checkout');
+Route::post('/checkout', [PageController::class , 'postCheckout'])->name('checkout');
+
 Route::get('/lienhe', [PageController::class , 'getLienHe']);
 Route::get('/gioithieu', [PageController::class , 'getGioiThieu']);
+
 Route::get('/chi-tiet-sp/{id}', [PageController::class , 'getChiTietSP'])->name('chitietsanpham');
+Route::get('/type/{id}', [PageController::class , 'getLoaiSp']);
+
 Route::get('/login', [PageController::class , 'getLogin'])->name('login');
+Route::post('/login', [PageController::class , 'postLogin'])->name('login');
 
 Route::get('/singup', [PageController::class , 'getSingUp'])->name('singup');
-Route::post('/singup', [PageController::class , 'postSingUp'])->name('singup.post');
+Route::post('/singup', [PageController::class , 'postSingUp'])->name('singup');
 
 
 // -------------------

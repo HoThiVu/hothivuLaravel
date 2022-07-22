@@ -6,6 +6,7 @@ use App\Models\Cart;
 // use App\Providers\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,14 +38,14 @@ class AppServiceProvider extends ServiceProvider
             $view->with('loai_sp', $loai_sp);
         });
 
-        // View::composer(['layout.header','banhang.checkout'],function($view){
-        //     if(Session('cart')){
-        //         $oldCart = Session::get('cart'); //session cart được tạo trong method addToCart của PageController
-        //         $cart = new Cart($oldCart);
-        //         $view->with(['cart'=>Session::get('cart'),'productCarts'=>$cart->items,
-        //         'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
-        //     }
-        // });
+        View::composer(['layout.header','banhang.checkout'],function($view){
+            if(Session('cart')){
+                $oldCart = Session::get('cart'); //session cart được tạo trong method addToCart của PageController
+                $cart = new Cart($oldCart);
+                $view->with(['cart'=>Session::get('cart'),'productCarts'=>$cart->items,
+                'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
+            }
+        });
 
     }
 }
