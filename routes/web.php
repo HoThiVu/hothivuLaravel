@@ -99,3 +99,11 @@ Route::post('/singup', [PageController::class , 'postSingUp'])->name('singup');
 // Lấy danh sách sản phẩm
 // Route::get('cars', 'Api\CarController@index')->name('Cars.index');
 
+// ------------------vnpay------------
+Route::get('/vnpay-index',function(){
+    return view('vnpay.vnpay-index');
+    });
+
+    //Route xử lý nút Xác nhận thanh toán trên trang checkout.blade.php
+Route::post('/vnpay/create_payment',[PageController::class,'createPaym
+ent'])->name('postCreatePayment');

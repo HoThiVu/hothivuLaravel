@@ -17,7 +17,8 @@
     <div class="container">
         <div id="content">
 
-            <form action="#" method="post" class="beta-form-checkout">
+            <form action="{{ route('checkout') }}" method="post" class="beta-form-checkout">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="row">
                     <div class="col-sm-6">
                         <h4>Đặt hàng</h4>
@@ -43,19 +44,19 @@
 
                         <div class="form-block">
                             <label for="adress">Địa chỉ*</label>
-                            <input type="text" id="adress" name="adress" placeholder="Street Address" required>
+                            <input type="text" id="address" name="address" placeholder="Street Address">
                         </div>
 
 
                         <div class="form-block">
                             <label for="phone">Điện thoại*</label>
-                            <input type="text" id="phone" name="phone" required>
+                            <input type="text" id="phone" name="phone_number" required>
 
                         </div>
 
                         <div class="form-block">
                             <label for="notes">Ghi chú</label>
-                            <textarea id="notes"></textarea>
+                            <textarea id="notes" name="note"></textarea>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -135,12 +136,16 @@
                                             <br>- Ngân hàng ACB, Chi nhánh TPHCM
                                         </div>
                                     </li>
-
+                                    <li class="payment_method_cheque"><input id="payment_method_cheque" type="radio"
+                                            class="input-radio" name="payment_method" value="VNPAY"
+                                            data-order_button_text="">
+                                        <label for="payment_method_cheque">Thanh toán online</label>
+                                    </li>
                                 </ul>
                             </div>
+                            <button class="beta-btn primary" type="submit"
+                                onclick="alert('Ban da dat hang thanh cong')">dat hang</button>
 
-                            <div class="text-center"><a class="beta-btn primary" href="#">Đặt hàng
-                                    <i class="fa fa-chevron-right"></i></a></div>
                         </div> <!-- .your-order -->
                     </div>
                 </div>

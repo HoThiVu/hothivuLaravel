@@ -7,6 +7,8 @@ use App\Models\User;
 
 use App\Models\productType;
 use App\Models\Customer;
+use App\Models\BillDetail;
+use App\Models\Bill;
 use App\Models\Slide;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -15,12 +17,14 @@ use Illuminate\Support\Facades\Auth;
 // use Illuminate\Pagination\LengthAwarePaginator;
 class PageController extends Controller
 {
+    
 public function getGioiThieu(){
     return view('banhang.gioithieu');
 }
 public function getLienHe(){
     return view('banhang.lienhe');
 }
+
 
     //
     public function getIndex(){
@@ -31,12 +35,14 @@ public function getLienHe(){
         return view('banhang.index',compact('slide','new_products','top_products','products'));
     }
 
+
     public function getLoaiSp($type){
         $loai_sp = ProductType::all();
         $sp_theoloai = Product::where('id_type',$type)->get();
         $sp_khac =  Product::where ('id_type','<>',$type)->paginate(3);
         return view ('banhang.loai-san-pham',compact('sp_theoloai', 'loai_sp', 'sp_khac'));
     }
+
 
 //thêm 1 sản phẩm có id cụ thể vào model cart rồi lưu dữ liệu của model cart vào 1 session có tên cart (session được truy cập bằng thực thể Request)
     public function addToCart(Request $request,$id){
@@ -68,35 +74,75 @@ public function getLienHe(){
     public function getCheckout(){
         return view('banhang.checkout');
     }
+
     public function postCheckout(Request $request){
-        $cart=Session::get('cart');
-        $customer = new Customer;
-        $customer->name=$request->name;
-        $customer->gender=$request->gender;
-        $customer->email=$request->email;
-        $customer->address=$request->address;
-        $customer->phone_number=$request->phone;
-        $customer->note=$request->notes;
-        $customer->save();
+       
+            if($request->input('payment_method')!="VNPAY"){
+                $cart=Session::get('cart');
+                $customer=new Customer();
+                $customer->name=$request->name;
+                $customer->gender=$request->gender;
+                $customer->email=$request->email;
+                $customer->address=$request->address;
+                $customer->phone_number=$request->phone_number;
+                $customer->note=$request->note;
+                $customer->save();
+        
+                $bill=new Bill();
+                $bill->id_customer=$customer->id;
+                $bill->date_order=date('Y-m-d');
+                $bill->total=$cart->totalPrice;
+                $bill->payment=$request->input('payment_method');
+                $bill->note=$request->input('notes');
+                $bill->save();
+        
+                foreach($cart->items as $key=>$value)
+                {
+                    $bill_detail=new BillDetail();
+                    $bill_detail->id_bill=$bill->id;
+                    $bill_detail->id_product=$key;
+                    $bill_detail->quantity=$value['qty'];
+                    $bill_detail->unit_price=$value['price']/$value['qty'];
+                    $bill_detail->save();
+                }
+                Session::forget('cart');
+                return redirect()->back()->with('success','Đặt hàng thành công');
+        
+            }
+            else {//nếu thanh toán là vnpay
+                $cart=Session::get('cart');
+                return view('vnpay.vnpay-index',compact('cart'));
+            }
+            
 
-        $bill = new Bill;
-        $bill->id_customer=$customer->id;
-        $bill->date_order=date('Y-m-d');
-        $bill->total = $cart->totalPrice;
-        $bill->payment = $request->payment_method;
-        $bill->note=$request->notes;
-        $bill->save();
+        // $cart=Session::get('cart');
+        // $customer = new Customer;
+        // $customer->name=$request->name;
+        // $customer->gender=$request->gender;
+        // $customer->email=$request->email;
+        // $customer->address=$request->address;
+        // $customer->phone_number=$request->phone;
+        // $customer->note=$request->notes;
+        // $customer->save();
 
-        foreach ($cart->items as $key=>$value){
-            $bill_detail = new BillDetail;
-            $bill_detail->id_bill= $bill->id;
-            $bill_detail->id_product = $key;
-            $bill_detail->quantity =  $value['qty'];
-            $bill_detail->unit_price = ($value['price']/$value['qty']);
-            $bill_detail->save();
-        }
-        Session::forget('cart');
-        return redirect()->back()->with('thongbao', 'Order sucessfully');
+        // $bill = new Bill;
+        // $bill->id_customer=$customer->id;
+        // $bill->date_order=date('Y-m-d');
+        // $bill->total = $cart->totalPrice;
+        // $bill->payment = $request->payment_method;
+        // $bill->note=$request->notes;
+        // $bill->save();
+
+        // foreach ($cart->items as $key=>$value){
+        //     $bill_detail = new BillDetail;
+        //     $bill_detail->id_bill= $bill->id;
+        //     $bill_detail->id_product = $key;
+        //     $bill_detail->quantity =  $value['qty'];
+        //     $bill_detail->unit_price = ($value['price']/$value['qty']);
+        //     $bill_detail->save();
+        // }
+        // Session::forget('cart');
+        // return redirect()->back()->with('thongbao', 'Order sucessfully');
     }
 // ----------------------------
     public function getLogin(){
