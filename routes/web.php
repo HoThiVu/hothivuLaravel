@@ -29,7 +29,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('cars',Carcontroller::class);
+Route::resource('cars', Carcontroller::class);
 
 
 // route này tương đương với 7 route như sau:
@@ -45,21 +45,21 @@ Route::resource('cars',Carcontroller::class);
 // Route::get('ptb1',function(){
 //     return view('ptb1');
 // });
-Route::get('Calculator',function(){
+Route::get('Calculator', function () {
     return view('Calculator');
 });
 
-Route::post('Calculator',[Calculatorall::class,'Tinhtoan'])-> name('Calculator.post'); 
+Route::post('Calculator', [Calculatorall::class,'Tinhtoan'])-> name('Calculator.post');
 
-Route::get('CaculatorRadio',function(){
+Route::get('CaculatorRadio', function () {
     return view('CaculatorRadio');
 });
-Route::post('CaculatorRadio',[CalculatorRadion::class,'Tinhtoan'])->name('CaculatorRadio.post');
+Route::post('CaculatorRadio', [CalculatorRadion::class,'Tinhtoan'])->name('CaculatorRadio.post');
 Route::get('ListCar', function () {
     return view('ListCar');
 });
 // ----------------------------------------------------------------
-Route::post('CaculatorRadio',[CalculatorRadion::class,'Tinhtoan'])->name('CaculatorRadio.post');
+Route::post('CaculatorRadio', [CalculatorRadion::class,'Tinhtoan'])->name('CaculatorRadio.post');
 Route::get('ListCar', function () {
     return view('ListCar');
 });
@@ -100,13 +100,51 @@ Route::post('/singup', [PageController::class , 'postSingUp'])->name('singup');
 // Route::get('cars', 'Api\CarController@index')->name('Cars.index');
 
 // ------------------vnpay------------
-Route::get('/vnpay-index',function(){
+Route::get('/vnpay-index', function () {
     return view('vnpay-index');
-    });
+});
     //Route xử lý nút Xác nhận thanh toán trên trang checkout.blade.php
-    Route::post('/vnpay/create_payment',[PageController::class,'createPayment'])->name('postCreatePayment');
+    Route::post('/vnpay/create_payment', [PageController::class,'createPayment'])->name('postCreatePayment');
     //Route để gán cho key "vnp_ReturnUrl" ở bước 6
-    Route::get('/vnpay/vnpay_return',[PageController::class,'vnpayReturn'])->name('vnpayReturn');
+    Route::get('/vnpay/vnpay_return', [PageController::class,'vnpayReturn'])->name('vnpayReturn');
 
     //Route xử lý nút Xác nhận thanh toán trên trang checkout.blade.php
-Route::post('vnpay_payment',[PageController::class,'vnpay_payment'])->name('vnpay_payment');
+Route::post('vnpay_payment', [PageController::class,'vnpay_payment'])->name('vnpay_payment');
+
+
+// ---------------------------------------------------------ADMIN-----------------------------------------------------------------------------------------------
+
+
+/*------ phần quản trị ----------*/
+// Route::get('/admin/dangnhap', [UserController::class,'getLogin'])->name('admin.getLogin');
+// Route::post('/admin/dangnhap', [UserController::class,'postLogin'])->name('admin.postLogin');
+// Route::get('/admin/dangxuat', [UserController::class,'getLogout']);
+
+
+// Route::group(['prefix'=>'admin','middleware'=>'adminLogin'], function () {
+//     Route::group(['prefix'=>'category'], function () {
+//         // admin/category/danhsach
+//         Route::get('danhsach', [CategoryController::class,'getCateList'])->name('admin.getCateList');
+//         Route::get('them', [CategoryController::class,'getCateAdd'])->name('admin.getCateAdd');
+//         Route::post('them', [CategoryController::class,'postCateAdd'])->name('admin.postCateAdd');
+//         Route::get('xoa/{id}', [CategoryController::class,'getCateDelete'])->name('admin.getCateDelete');
+//         Route::get('sua/{id}', [CategoryController::class,'getCateEdit'])->name('admin.getCateEdit');
+//         Route::post('sua/{id}', [CategoryController::class,'postCateEdit'])->name('admin.postCateEdit');
+//     });
+
+//     //viết tiếp các route khác cho crud products, users,.... thì viết tiếp
+
+//     Route::group(['prefix'=>'bill'], function () {
+//         // admin/bill/{status}
+//         Route::get('{status}', [BillController::class,'getBillList'])->name('admin.getBillList');
+            
+//         //by laravel request
+//         Route::get('{id}/{status}', [BillController::class,'updateBillStatus'])->name('admin.updateBillStatus');
+//         //by ajax request
+//         Route::post('updateBillStatusAjax', [BillController::class,'updateBillStatusAjax'])->name('admin.updateBillStatusAjax');
+            
+//         Route::post('{id}', [BillController::class,'cancelBill'])->name('admin.cancelBill');
+//     });
+// });
+
+Route::get('/admin', [PageController::class , 'getIndexAdmin'])->name('indexAdmin');

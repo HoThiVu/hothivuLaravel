@@ -263,4 +263,8 @@ class PageController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('banhang.index');
     }
+    // ------------------------------------------------------------------------------------- ADMIN-
+    public function getIndexAdmin(){
+        return view('adminBanhang.indexAdmin');
+    }
 }
