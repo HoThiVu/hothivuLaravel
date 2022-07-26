@@ -101,9 +101,12 @@ Route::post('/singup', [PageController::class , 'postSingUp'])->name('singup');
 
 // ------------------vnpay------------
 Route::get('/vnpay-index',function(){
-    return view('vnpay.vnpay-index');
+    return view('vnpay-index');
     });
+    //Route xử lý nút Xác nhận thanh toán trên trang checkout.blade.php
+    Route::post('/vnpay/create_payment',[PageController::class,'createPayment'])->name('postCreatePayment');
+    //Route để gán cho key "vnp_ReturnUrl" ở bước 6
+    Route::get('/vnpay/vnpay_return',[PageController::class,'vnpayReturn'])->name('vnpayReturn');
 
     //Route xử lý nút Xác nhận thanh toán trên trang checkout.blade.php
-Route::post('/vnpay/create_payment',[PageController::class,'createPaym
-ent'])->name('postCreatePayment');
+Route::post('vnpay_payment',[PageController::class,'vnpay_payment'])->name('vnpay_payment');

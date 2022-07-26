@@ -143,11 +143,15 @@
                                     </li>
                                 </ul>
                             </div>
-                            <button class="beta-btn primary" type="submit"
-                                onclick="alert('Ban da dat hang thanh cong')">dat hang</button>
+
+
 
                         </div> <!-- .your-order -->
                     </div>
+                    {{-- <form action="{{ route('vnpay_payment') }}" method="post"> --}}
+                    {{-- @csrf --}}
+                    <button class="beta-btn primary" type="submit" name="redirect">Thanh Toan VN pay</button>
+                    {{-- </form> --}}
                 </div>
             </form>
         </div> <!-- #content -->
