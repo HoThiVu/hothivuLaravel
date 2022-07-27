@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Calculatorall;
 use App\Http\Controllers\CalculatorRadion;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\CategoryController;
+
 
 // use App\Http\Controllers\Carcontroller;
 
@@ -87,7 +89,7 @@ Route::get('/gioithieu', [PageController::class , 'getGioiThieu']);
 
 Route::get('/chi-tiet-sp/{id}', [PageController::class , 'getChiTietSP'])->name('chitietsanpham');
 Route::get('/type/{id}', [PageController::class , 'getLoaiSp']);
-
+// Route::get('logout', [PageController::class, 'postLogout'])->name('logout');
 Route::get('/login', [PageController::class , 'getLogin'])->name('login');
 Route::post('/login', [PageController::class , 'postLogin'])->name('login');
 
@@ -147,4 +149,25 @@ Route::post('vnpay_payment', [PageController::class,'vnpay_payment'])->name('vnp
 //     });
 // });
 
-Route::get('/admin', [PageController::class , 'getIndexAdmin'])->name('indexAdmin');
+// Route::get('/admin', [CategoryController::class , 'getCategoryList']);
+
+Route::get('/admin/login', [UserController::class, 'getLogin'])->name('admin.category.login');
+Route::post('/admin/login', [UserController::class, 'postLogin'])->name('admin.category.login');
+// Route::get('/admin/logout',[UserController::class,'getLogout'])->name('admin.category.logout');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
+    Route::group(['prefix' => 'category'], function () {
+        // admin/category/danhsach
+        Route::get('/cate-list', [CategoryController::class, 'getCategoryList'])->name('admin.category-list');
+        // Route::get('them',[CategoryController::class,'getCateAdd'])->name('admin.getCateAdd');
+        // Route::post('them',[CategoryController::class,'postCateAdd'])->name('admin.postCateAdd');
+        // Route::get('xoa/{id}',[CategoryController::class,'getCateDelete'])->name('admin.getCateDelete');
+        // Route::get('sua/{id}',[CategoryController::class,'getCateEdit'])->name('admin.getCateEdit');
+        // Route::post('sua/{id}',[CategoryController::class,'postCateEdit'])->name('admin.postCateEdit');
+    });
+});
+
+
+// --------------------SEND EMAILS
+Route::get('/input-email',[PageController::class,'getInputEmail'])->name('getInputEmail');
+Route::post('/input-email',[PageController::class,'postInputEmail'])->name('postInputEmail');

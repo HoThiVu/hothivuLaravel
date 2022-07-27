@@ -264,7 +264,50 @@ class PageController extends Controller
         return redirect()->route('banhang.index');
     }
     // ------------------------------------------------------------------------------------- ADMIN-
-    public function getIndexAdmin(){
+    public function getIndexAdmin()
+    {
         return view('adminBanhang.indexAdmin');
     }
+
+
+
+    // ----------------------------------
+    //hàm xử lý gửi email
+
+    public function getInputEmail(){
+        return view('emails/input-email');
+    }
+    public function postInputEmail(Request $req)
+    {
+        $email=$req->txtEmail;
+    
+        //validate
+    
+        // kiểm tra có user có email như vậy không
+    
+        $user=User::where('email', $email)->get();
+    
+        //dd($user);
+    
+        if ($user->count()!=0) {
+    
+            //gửi mật khẩu reset tới email
+    
+            $sentData = [
+    
+    'title' => 'Mật khẩu mới của bạn là:',
+    
+    'body' => '123456'
+    
+    ];
+    
+            \Mail::to($email)->send(new \App\Mail\SendMail($sentData));
+    
+            Session::flash('message', 'Send email successfully!');
+    
+            return view('banhang.login'); //về lại trang đăng nhập của khách
+        } else {
+            return redirect()->route('getInputEmail')->with('message', 'Your email is not right');
+        }
+    }//hết postInputEmail
 }

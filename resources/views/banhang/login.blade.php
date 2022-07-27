@@ -18,7 +18,7 @@
     <div class="container">
         <div id="content">
 
-            <form action="{{ route('login') }}" method="post" class="beta-form-checkout">
+            <form action="{{route('login') }}" method="post" class="beta-form-checkout">
                 @csrf
                 <div class="row">
                     <div class="col-sm-3"></div>
