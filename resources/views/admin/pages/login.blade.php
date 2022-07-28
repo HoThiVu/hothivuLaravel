@@ -7,7 +7,7 @@
     <meta name="description" content="Khóa Học Lập Trình Laravel Framework 5.x Tại Khoa Phạm">
     <meta name="author" content="">
 
-    <title>Admin - Khoa Phạm</title>
+    <title>Admin - Hồ Thị Vư</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+                                <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
                             </fieldset>
                         </form>
                     </div>

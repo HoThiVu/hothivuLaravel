@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Calculatorall;
 use App\Http\Controllers\CalculatorRadion;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\AdminLoginMiddldeware;
 
 
 // use App\Http\Controllers\Carcontroller;
@@ -96,6 +98,8 @@ Route::post('/login', [PageController::class , 'postLogin'])->name('login');
 Route::get('/singup', [PageController::class , 'getSingUp'])->name('singup');
 Route::post('/singup', [PageController::class , 'postSingUp'])->name('singup');
 
+Route::get('/logout',[PageController::class,'getLogout'])->name('logout');
+
 
 // -------------------
 // Lấy danh sách sản phẩm
@@ -117,48 +121,14 @@ Route::post('vnpay_payment', [PageController::class,'vnpay_payment'])->name('vnp
 // ---------------------------------------------------------ADMIN-----------------------------------------------------------------------------------------------
 
 
-/*------ phần quản trị ----------*/
-// Route::get('/admin/dangnhap', [UserController::class,'getLogin'])->name('admin.getLogin');
-// Route::post('/admin/dangnhap', [UserController::class,'postLogin'])->name('admin.postLogin');
-// Route::get('/admin/dangxuat', [UserController::class,'getLogout']);
-
-
-// Route::group(['prefix'=>'admin','middleware'=>'adminLogin'], function () {
-//     Route::group(['prefix'=>'category'], function () {
-//         // admin/category/danhsach
-//         Route::get('danhsach', [CategoryController::class,'getCateList'])->name('admin.getCateList');
-//         Route::get('them', [CategoryController::class,'getCateAdd'])->name('admin.getCateAdd');
-//         Route::post('them', [CategoryController::class,'postCateAdd'])->name('admin.postCateAdd');
-//         Route::get('xoa/{id}', [CategoryController::class,'getCateDelete'])->name('admin.getCateDelete');
-//         Route::get('sua/{id}', [CategoryController::class,'getCateEdit'])->name('admin.getCateEdit');
-//         Route::post('sua/{id}', [CategoryController::class,'postCateEdit'])->name('admin.postCateEdit');
-//     });
-
-//     //viết tiếp các route khác cho crud products, users,.... thì viết tiếp
-
-//     Route::group(['prefix'=>'bill'], function () {
-//         // admin/bill/{status}
-//         Route::get('{status}', [BillController::class,'getBillList'])->name('admin.getBillList');
-            
-//         //by laravel request
-//         Route::get('{id}/{status}', [BillController::class,'updateBillStatus'])->name('admin.updateBillStatus');
-//         //by ajax request
-//         Route::post('updateBillStatusAjax', [BillController::class,'updateBillStatusAjax'])->name('admin.updateBillStatusAjax');
-            
-//         Route::post('{id}', [BillController::class,'cancelBill'])->name('admin.cancelBill');
-//     });
-// });
-
-// Route::get('/admin', [CategoryController::class , 'getCategoryList']);
-
 Route::get('/admin/login', [UserController::class, 'getLogin'])->name('admin.category.login');
 Route::post('/admin/login', [UserController::class, 'postLogin'])->name('admin.category.login');
 // Route::get('/admin/logout',[UserController::class,'getLogout'])->name('admin.category.logout');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'adminlogin'], function () {
     Route::group(['prefix' => 'category'], function () {
         // admin/category/danhsach
-        Route::get('/cate-list', [CategoryController::class, 'getCategoryList'])->name('admin.category-list');
+        Route::get('/category-list', [CategoryController::class, 'getCategoryList'])->name('admin.category-list');
         // Route::get('them',[CategoryController::class,'getCateAdd'])->name('admin.getCateAdd');
         // Route::post('them',[CategoryController::class,'postCateAdd'])->name('admin.postCateAdd');
         // Route::get('xoa/{id}',[CategoryController::class,'getCateDelete'])->name('admin.getCateDelete');
@@ -166,7 +136,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
         // Route::post('sua/{id}',[CategoryController::class,'postCateEdit'])->name('admin.postCateEdit');
     });
 });
+Route::get('/category-add', [CategoryController::class , 'getAdminpage'])->name('add-product');
+Route::post('/category-add', [CategoryController::class , 'postAdminAdd'])->name('add-product');
+Route::get('/category-list',[CategoryController::class, 'getIndexAdmin']);
 
+// ---
+Route::post('/admin-delete/{id}',[CategoryController::class,'postAdminDelete']);
 
 // --------------------SEND EMAILS
 Route::get('/input-email',[PageController::class,'getInputEmail'])->name('getInputEmail');

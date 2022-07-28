@@ -19,12 +19,10 @@ class AdminLoginMiddldeware
     {
         if(Auth::check()){
             $user=Auth::user();
-            if($user->level==1 || $user->level==2){
-                 return $next($request);
-            }
-            // else{
-            //     return redirect('admin.page.login');
+            // if($user->level==1 || $user->level==2){
+                
             // }
+            return $next($request);
         }
         else{
             return redirect('admin.page.login');

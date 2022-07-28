@@ -255,14 +255,17 @@ class PageController extends Controller
         $user->save();
         return redirect()->back()->with('thanhcong', 'Tạo tài khoản thành công');
     }
-    // --------------------------------------------------------
+    // --------------------------------------------------------Đăng xuất --------------
     public function getLogout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('banhang.index');
+        return redirect()->route('index');
     }
+
+
+ 
     // ------------------------------------------------------------------------------------- ADMIN-
     public function getIndexAdmin()
     {
