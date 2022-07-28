@@ -43,6 +43,11 @@
                         </div>
 
                         <div class="form-block">
+                            <label for="your_last_name">level</label>
+                            <input type="integer" id="your_last_name" name="level" required>
+                        </div>
+
+                        <div class="form-block">
                             <label for="phone">Password*</label>
                             <input type="password" id="phone" name="password" required>
                         </div>

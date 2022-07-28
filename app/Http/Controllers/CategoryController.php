@@ -19,7 +19,7 @@ class CategoryController extends Controller
     // }
     public function getCategoryList()
     {
-        $products = product::all();
+        $products = product::paginate(4);
         return view('admin.category.category-list', compact('products'));
     }
     // -------------------------------------------- admin
@@ -54,14 +54,45 @@ class CategoryController extends Controller
         $product->new=$request->inputNew;
         $product->id_type=$request->inputType;
         $product->save();
-        return redirect('admin/category/category-add')->with('success', 'Đăng ký thành công');
+        return redirect('admin/category/category-list')->with('success', 'Đăng ký thành công');
     }
+// ------------
+public function getAdminEdit($id){
+    $product = product::find($id);
+    return view('admin/category/category-edit')->with('product',$product);
+}
+
+public function postAdminEdit(Request $request){
+    $id = $request->editId;
+
+    $product = product::find($id);
+    if($request->hasFile('editImage')){
+        $file = $request -> file ('editImage');
+        $fileName=$file->getClientOriginalName('editImage');
+        $file->move('source/image/product',$fileName);
+    }
+    if ($request->file('editImage')!=null){
+        $product ->image=$fileName;
+    }
+    $product->name=$request->editName;
+    // $product->image=$file_name;
+    $product->description=$request->editDescription;
+    $product->unit_price=$request->editPrice;
+    $product->promotion_price=$request->editPromotionPrice;
+    $product->unit=$request->editUnit;
+    $product->new=$request->editNew;
+    $product->id_type=$request->editType;
+    $product->save();
+    return redirect('admin/category/category-list');
+}
 // ------------
 public function postAdminDelete($id){
     $product =product::find($id);
     $product->delete();
     return redirect('admin/category/category-list');
 }
+
+// -----
 
     public function index()
     {

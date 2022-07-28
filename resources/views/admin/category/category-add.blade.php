@@ -71,7 +71,7 @@
                 </script>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary"  onclick="return confirm('Bạn đã add thành công')">Submit</button>
         </form>
     </div>
     <div class="space50">&nbsp;</div>

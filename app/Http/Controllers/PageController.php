@@ -232,6 +232,7 @@ class PageController extends Controller
             ['email'=>'required|email|unique:users,email',
             'password'=>'required|min:6|max:20',
             'name'=>'required',
+            'level'=>'required',
             'repassword'=>'required|same:password'
         ],
             ['email.required'=>'Vui lòng nhập email',
@@ -246,6 +247,7 @@ class PageController extends Controller
         $user=new User();
         $user->name=$req->name;
         $user->email=$req->email;
+        $user->level=$req->level;
         $user->password=Hash::make($req->password);
         // $user->c_password=Hash::make($req->password);
      

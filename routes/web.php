@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Carcontroller;
 use Illuminate\Http\Request;
-// use App\Http\Controllers\Giaiptb1;
 use App\Http\Controllers\Calculatorall;
 use App\Http\Controllers\CalculatorRadion;
 use App\Http\Controllers\PageController;
@@ -11,8 +10,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\AdminLoginMiddldeware;
 
-
-// use App\Http\Controllers\Carcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,7 +86,8 @@ Route::post('/checkout', [PageController::class , 'postCheckout'])->name('checko
 Route::get('/lienhe', [PageController::class , 'getLienHe']);
 Route::get('/gioithieu', [PageController::class , 'getGioiThieu']);
 
-Route::get('/chi-tiet-sp/{id}', [PageController::class , 'getChiTietSP'])->name('chitietsanpham');
+Route::get('/chi-tiet-sp/
+{id}', [PageController::class , 'getChiTietSP'])->name('chitietsanpham');
 Route::get('/type/{id}', [PageController::class , 'getLoaiSp']);
 // Route::get('logout', [PageController::class, 'postLogout'])->name('logout');
 Route::get('/login', [PageController::class , 'getLogin'])->name('login');
@@ -141,7 +139,11 @@ Route::post('/category-add', [CategoryController::class , 'postAdminAdd'])->name
 Route::get('/category-list',[CategoryController::class, 'getIndexAdmin']);
 
 // ---
-Route::post('/admin-delete/{id}',[CategoryController::class,'postAdminDelete']);
+Route::get('/admin-edit-form/{id}',[CategoryController::class,'getAdminEdit'])->name('get-edit-product');
+Route::post('/admin-edit',[CategoryController::class,'postAdminEdit'])->name('edit-product');
+
+
+Route::post('/admin-delete/{id}',[CategoryController::class,'postAdminDelete'])->name('post-delete-product');
 
 // --------------------SEND EMAILS
 Route::get('/input-email',[PageController::class,'getInputEmail'])->name('getInputEmail');
