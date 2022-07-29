@@ -13,7 +13,7 @@
                         <li><a href="">Xin chao {{ Auth::user()->name }}</a></li>
                         <li><a href="{{ route('logout') }}"><i class="fa fa-user"></i>Đăng xuất</a></li>
                     @else
-                        <li><a href=" #">Tài khoản</a></li>
+                        {{-- <li><a href=" #">Tài khoản</a></li> --}}
                         <li><a href="{{ route('singup') }}">Đăng kí</a></li>
                         <li><a href="{{ route('login') }}">Đăng nhập</a></li>
                     @endif
@@ -41,9 +41,18 @@
                 <div class="beta-comp">
                     @if (Session::has('cart'))
                         <div class="cart">
-                            <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng
+                            {{-- <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng
                                 ({{ Session::has('cart') ? Session('cart')->totalQty : 'Trống' }}) <i
-                                    class="fa fa-chevron-down"></i></div>
+                                    class="fa fa-chevron-down"></i>
+                                </div> --}}
+
+                                <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng
+                                    (@if (Session::has('cart'))
+                                        {{ Session('cart')->totalQty }}
+                                    @else
+                                    Trống
+                                    @endif) <i class="fa fa-chevron-down"></i>
+                                </div>
 
                             <div class="beta-dropdown cart-body">
                                 @foreach ($productCarts as $product)

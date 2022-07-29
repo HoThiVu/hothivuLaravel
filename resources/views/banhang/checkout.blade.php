@@ -150,7 +150,7 @@
                     </div>
                     {{-- <form action="{{ route('vnpay_payment') }}" method="post"> --}}
                     {{-- @csrf --}}
-                    <button class="beta-btn primary" type="submit" name="redirect"  onclick="return confirm('Bạn có chắc chắn muốn đặt hàng')">Đặt hàng</button>
+                    <button class="beta-btn primary" type="submit" name="redirect" >Đặt hàng</button>
                     {{-- </form> --}}
                     
                 </div>

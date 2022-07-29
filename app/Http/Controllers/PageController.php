@@ -98,7 +98,7 @@ class PageController extends Controller
             $bill=new Bill();
             $bill->id_customer=$customer->id;
             $bill->date_order=date('Y-m-d');
-            $bill->total=$cart->totalPrice;
+            $bill->total = $cart->totalPrice;
             $bill->payment=$request->input('payment_method');
             $bill->note=$request->input('notes');
             $bill->save();
@@ -111,12 +111,18 @@ class PageController extends Controller
                 $bill_detail->unit_price=$value['price']/$value['qty'];
                 $bill_detail->save();
             }
+            $data=[
+                'cart'=>Session::get('cart')
+               ];
             Session::forget('cart');
+           // $product,$data
+            \Mail::to($request->email)->send(new \App\Mail\Sendbill($data));
             return redirect()->back()->with('success', 'Đặt hàng thành công');
         } else {//nếu thanh toán là vnpay
             $cart=Session::get('cart');
             return view('vnpay.vnpay-index', compact('cart'));
         }
+
     }
     // ----------------------------
     // --------------vnpay
@@ -282,6 +288,11 @@ class PageController extends Controller
     public function getInputEmail(){
         return view('emails/input-email');
     }
+
+    public function getEmailBill(){
+
+        
+    }
     public function postInputEmail(Request $req)
     {
         $email=$req->txtEmail;
@@ -301,7 +312,6 @@ class PageController extends Controller
             $sentData = [
     
     'title' => 'Mật khẩu mới của bạn là:',
-    
     'body' => '123456'
     
     ];

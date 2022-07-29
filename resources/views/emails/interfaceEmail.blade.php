@@ -4,23 +4,23 @@
 
 <head>
 
-<meta charset="utf-8">
+    <meta charset="utf-8">
 
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title></title>
+    <title></title>
 
-<link rel="stylesheet" href="">
+    <link rel="stylesheet" href="">
 
 </head>
 
 <body>
 
-<!-- sentData được truyền từ app\Mail\SendMail.php -->
+    <!-- sentData được truyền từ app\Mail\SendMail.php -->
 
-<h1>{{ $sentData['title'] }}</h1>
+    <h1>{{ $sentData['title'] }}</h1>
 
-<p>{{ $sentData['body'] }}</p>
+    <p>{{ $sentData['body'] }}</p>
 
 </body>
 

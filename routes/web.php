@@ -148,3 +148,6 @@ Route::post('/admin-delete/{id}',[CategoryController::class,'postAdminDelete'])-
 // --------------------SEND EMAILS
 Route::get('/input-email',[PageController::class,'getInputEmail'])->name('getInputEmail');
 Route::post('/input-email',[PageController::class,'postInputEmail'])->name('postInputEmail');
+
+Route::get('/send-email',[PageController::class,'getEmailBill'])->name('getSendEmailBill');
+// Route::post('/input-email',[PageController::class,'postInputEmail'])->name('postInputEmail');
