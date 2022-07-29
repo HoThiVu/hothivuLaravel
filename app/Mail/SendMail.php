@@ -34,6 +34,9 @@ class SendMail extends Mailable
 
         return $this->subject('yêu cầu cấp lại mật khẩu từ shop bánh')->replyTo('davien04@gmail.com', 'Dan Linh')->view('emails.interfaceEmail', [
 
+
+
+           
     'sentData' => $this->sentData
     
     ]);

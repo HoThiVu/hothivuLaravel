@@ -56,12 +56,9 @@
                 
                   <td colspan="10">
                     <nav aria-label="Page navigation">
-                      {{ $products->links() }}
-
+                      {{ $products->links('pagination::bootstrap-4') }}
                   </nav>
-                  </td>
-                    
-               
+                  </td>               
             </tbody>
 
 

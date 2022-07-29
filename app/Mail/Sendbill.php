@@ -31,9 +31,6 @@ class Sendbill extends Mailable
     {
         //view ở đây là trang chứa các thông tin mình muốn hiển thị
 
-        return $this->subject('It is your bill')->replyTo('davien04@gmail.com', 'Dan Linh')->view('emails.mail-notify', [
-    'data' => $this->data
- 
-    ]);
+        return $this->subject('biil của bạn')->to('davien04@gmail.com', 'Dan Linh')->view('emails.mail-notify')->with(['data' => $this->data]);
     }
 }

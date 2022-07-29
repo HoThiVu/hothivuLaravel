@@ -56,8 +56,9 @@
                                     <div class="col-sm-3">
                                         <div class="single-item">
                                             <div class="single-item-header">
-                                                <a href="{{route('chitietsanpham',$new ->id)}}"><img src="/source/image/product/{{ $new->image }}"
-                                                        alt="" style="widht:15r3m;height:15rem"></a>
+                                                <a href="{{ route('chitietsanpham', $new->id) }}"><img
+                                                        src="/source/image/product/{{ $new->image }}" alt=""
+                                                        style="widht:15r3m;height:15rem"></a>
                                             </div>
                                             <div class="single-item-body">
                                                 <p class="single-item-title">{{ $new->name }}</p>
@@ -67,10 +68,14 @@
                                                 </p>
                                             </div>
                                             <div class="single-item-caption">
-                                                <a class="add-to-cart pull-left" href="{{ route('addtocart', $new->id) }}"><i
+                                                <a class="add-to-cart pull-left"
+                                                    href="{{ route('addtocart', $new->id) }}"><i
                                                         class="fa fa-shopping-cart"></i></a>
-                                                <a class="beta-btn primary"  href="{{route('chitietsanpham',$new ->id)}}">Details <i
+                                                <a class="beta-btn primary"
+                                                    href="{{ route('chitietsanpham', $new->id) }}">Details <i
                                                         class="fa fa-chevron-right"></i></a>
+                                                        <a class="add-to-wishlist" href="wishlist/add/{{ $new->id }}"><i
+                                                            class="fa fa-heart"> </i></a>
                                                 <div class="clearfix"></div>
                                             </div>
                                         </div>
@@ -93,25 +98,34 @@
                                     <div class="col-sm-3">
                                         <div class="single-item">
                                             <div class="single-item-header">
-                                                <a href="{{route('chitietsanpham',$top ->id)}}"><img src="/source/image/product/{{ $top->image }}"
-                                                        alt="" style="widht:15r3m;height:15rem"></a>
+                                                <a href="{{ route('chitietsanpham', $top->id) }}"><img
+                                                        src="/source/image/product/{{ $top->image }}" alt=""
+                                                        style="widht:15r3m;height:15rem"></a>
                                             </div>
                                             <div class="single-item-body">
                                                 <p class="single-item-title">{{ $top->name }}</p>
                                                 <p class="single-item-price">
                                                     @if ($top->promotion_price == 0)
-                                                        <span class="flash-sale">{{ number_format($top->unit_price) }}</span>
-                                                    @else 
-                                                    <span class="flash-del">{{ number_format($top->unit_price) }}</span>
-                                                    <span class="flash-sale">{{ number_format($top->promotion_price) }}</span>
-                                                @endif
+                                                        <span
+                                                            class="flash-sale">{{ number_format($top->unit_price) }}</span>
+                                                    @else
+                                                        <span
+                                                            class="flash-del">{{ number_format($top->unit_price) }}</span>
+                                                        <span
+                                                            class="flash-sale">{{ number_format($top->promotion_price) }}</span>
+                                                    @endif
                                                 </p>
                                             </div>
                                             <div class="single-item-caption">
-                                                <a class="add-to-cart pull-left" href="{{ route('addtocart', $new->id) }}">
+                                                <a class="add-to-cart pull-left" href="{{ route('addtocart', $top->id) }}">
                                                     <i class="fa fa-shopping-cart"></i></a>
-                                                <a class="beta-btn primary"  href="{{route('chitietsanpham',$top ->id)}}">Details <i
+
+                                                <a class="beta-btn primary"
+                                                    href="{{ route('chitietsanpham', $top->id) }}">Details <i
                                                         class="fa fa-chevron-right"></i></a>
+
+                                                <a class="add-to-wishlist" href="wishlist/add/{{ $top->id }}"><i
+                                                        class="fa fa-heart"></i></a>
                                                 <div class="clearfix"></div>
                                             </div>
                                         </div>

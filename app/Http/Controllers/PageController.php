@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\User;
-
 use App\Models\productType;
 use App\Models\Customer;
+use App\Models\Comment;
+
 use App\Models\BillDetail;
 use App\Models\Bill;
 use App\Models\Slide;
@@ -64,7 +64,9 @@ class PageController extends Controller
         $chitietSP = Product::where('id', $req->id)->first();
         $sp_tuongtu = Product::where('id_type', $chitietSP ->id_type)->paginate(3);
         $sp_sale =  Product::where('id', $req->id)->get();
-        return view('banhang.detail', compact('chitietSP', 'sp_tuongtu', 'sp_sale'));
+        $comments = Comment::where('id_product', $req->id)->get();
+        // return view('page.chitiet_sanpham', compact('sanpham', 'splienquan', 'comments'));
+        return view('banhang.detail', compact('chitietSP', 'sp_tuongtu', 'sp_sale','comments'));
     }
 
 
@@ -84,6 +86,7 @@ class PageController extends Controller
 
     public function postCheckout(Request $request)
     {
+        Session::put('email',$request->email);
         if ($request->input('payment_method')!="VNPAY") {
             $cart=Session::get('cart');
             $customer=new Customer();
@@ -94,7 +97,7 @@ class PageController extends Controller
             $customer->phone_number=$request->phone_number;
             $customer->note=$request->note;
             $customer->save();
-        
+            Session::forget('email');
             $bill=new Bill();
             $bill->id_customer=$customer->id;
             $bill->date_order=date('Y-m-d');
@@ -179,6 +182,8 @@ class PageController extends Controller
         return redirect($vnp_Url);
         die();
     }
+
+
     public function vnpayReturn(Request $request)
     {
         if ($request->vnp_ResponseCode=='00') {
@@ -190,6 +195,14 @@ class PageController extends Controller
             // ……..(xong bước 9 thì quay lại hoàn chỉnh code này để lưu dl thanh
             //toán vào bảng payments.
             //truyen inputData vao trang vnpay_return
+
+            $data=[
+                'cart'=>Session::get('cart')
+               ];
+            Session::forget('cart');
+           // $product,$data
+            \Mail::to(Session::get('email'))->send(new \App\Mail\Sendbill($data));
+           
             return view('/vnpay/vnpay-return', compact('vnpay_Data'));
         }
     }
@@ -216,8 +229,10 @@ class PageController extends Controller
         ]
         );
         $credentials=['email'=>$req->email,'password'=>$req->password];
-        // dd($credentials);
+
         if (Auth::attempt($credentials)) {//The attempt method will return true if authentication was successful. Otherwise, false will be returned.
+            $user = Auth::user();
+            Session::put('user', $user);
             return redirect()->back()->with(['flag'=>'success','message'=>'Đăng nhập thành công']);
         } else {
             return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng nhập không thành công']);
@@ -269,6 +284,8 @@ class PageController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        Session::forget('user');
+        Session::forget('cart');
         return redirect()->route('index');
     }
 
@@ -317,7 +334,7 @@ class PageController extends Controller
     ];
     
             \Mail::to($email)->send(new \App\Mail\SendMail($sentData));
-    
+            Session::forget('email');
             Session::flash('message', 'Send email successfully!');
     
             return view('banhang.login'); //về lại trang đăng nhập của khách

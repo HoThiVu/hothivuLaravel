@@ -7,7 +7,7 @@
             </div>
             <div class="pull-right">
                 <div class="beta-breadcrumb font-large">
-                    <a href="{{ route('index') }}">Home</a> / <span>Thông tin chi tiết sản phẩm</span>
+                    <a href="{{ route('index') }}">Home</a>/<span>Thông tin chi tiết sản phẩm</span>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -21,7 +21,8 @@
 
                     <div class="row">
                         <div class="col-sm-4">
-                            <img src="/source/image/product/{{ $chitietSP->image }}" alt=""  style="widht:10rem;height:10rem">
+                            <img src="/source/image/product/{{ $chitietSP->image }}" alt=""
+                                style="widht:10rem;height:10rem">
                         </div>
                         <div class="col-sm-8">
                             <div class="single-item-body">
@@ -80,106 +81,62 @@
                     <div class="woocommerce-tabs">
                         <ul class="tabs">
                             <li><a href="#tab-description">Description</a></li>
-                            <li><a href="#tab-reviews">Reviews (0)</a></li>
+                            <li><a href="#tab-comment">comment</a></li>
                         </ul>
-
                         <div class="panel" id="tab-description">
                             <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
                                 consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
                                 est, qui dolorem ipsum quia dolor sit amet.</p>
                             <p>Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-                                dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-                                exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-                                consequaturuis autem vel eum iure reprehenderit qui in ea voluptate velit es quam nihil
-                                molestiae consequr, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </p>
+                                dolore magnam aliquam
+                                quaerat voluptatem. Ut enim ad
+                                minima veniam, quis nostrum
+                                exercitationem ullam corporis
+                                suscipit laboriosam, nisi ut
+                                aliquid ex ea commodi
+                                consequaturuis autem vel eum
+                                iure reprehenderit qui in ea
+                                voluptate velit es quam nihil
+                                molestiae consequr, vel illum
+                                qui dolorem eum fugiat quo
+                                voluptas nulla pariatur?
+                            </p>
                         </div>
-                        <div class="panel" id="tab-reviews">
-                            <p>No Reviews</p>
+                        <div class="panel" id="tab-comment">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <form method="post" action="/comment/{{ $chitietSP->id }}">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <textarea class="form-control" name="comment" required></textarea>
+                                                </div>
+                                                <div>
+                                                    @if (isset($comments))
+                                                        @foreach ($comments as $comment)
+                                                            <p class="border-bottom">
+                                                            <p><b class="pull-left">{{ $comment->username }}</b></p><br />
+                                                            <p>{{ $comment->comment }}</p>
+                                                            </p>
+                                                        @endforeach
+                                                    @else
+                                                        <p>Chưa có bình luận nào cả!</p>
+                                                    @endif
+                                                </div>
+                                                <button type="submit" class="beta-btn primary">Bình luận</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+
                         </div>
                     </div>
-                    <div class="space50">&nbsp;</div>
-                    <div class="beta-products-list">
-                        <h4>Related Products - sản phẩm tương tự</h4>
-
-                        <div class="row">
-                            @foreach ($sp_tuongtu as $sptt)
-                                <div class="col-sm-4">
-                                    <div class="single-item">
-                                        <div class="ribbon-wrapper">
-                                            <div class="ribbon sale">Sale</div>
-                                        </div>
-
-                                        <div class="single-item-header">
-                                            <a href="#"><img src="/source/image/product/{{ $sptt->image }}"
-                                                    alt=""  style="widht:15r3m;height:15rem"></a>
-                                        </div>
-                                        <div class="single-item-body">
-                                            <p class="single-item-title">{{ $sptt->name }}</p>
-                                            <p class="single-item-price">
-                                                @if ($sptt->promotion_price == 0)
-                                                    <span class="flash-sale">{{ number_format($sptt->unit_price) }}</span>
-                                                @else
-                                                    <span class="flash-del">{{ number_format($sptt->unit_price) }}</span>
-                                                    <span
-                                                        class="flash-sale">{{ number_format($sptt->promotion_price) }}</span>
-                                                @endif
-                                            </p>
-                                        </div>
-                                        <div class="single-item-caption">
-                                            <a class="add-to-cart pull-left" href="#"><i
-                                                    class="fa fa-shopping-cart"></i></a>
-                                            <a class="beta-btn primary" href="#">Details <i
-                                                    class="fa fa-chevron-right"></i></a>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                            <nav aria-label="Page navigation">
-                                {{ $sp_tuongtu ->links('pagination::bootstrap-4') }}
-
-                            </nav>
-                        </div>
-                    </div> <!-- .beta-products-list -->
                 </div>
-                <div class="col-sm-3 aside">
-                    <div class="widget">
-                        <h3 class="widget-title">Best Sellers</h3>
-                        <div class="widget-body">
-                            @foreach ($sp_sale as $sale)
-                                <div class="beta-sales beta-lists">
-                                    <div class="media beta-sales-item">
-                                        <a class="pull-left" href="product.html"><img
-                                                src="/source/image/product/{{ $sale->image }}" alt=""  style="widht:8rem;height:5rem"></a>
-                                        <div class="media-body">
-                                            {{ $sale->name }}
-                                            <span class="beta-sales-price">{{ $sale->unit_price }}</span>
-                                        </div>
-                                    </div>
 
-                                </div>
-                            @endforeach
-                        </div>
-                    </div> <!-- best sellers widget -->
-                    <div class="widget">
-                        <h3 class="widget-title">New Products</h3>
-                        <div class="widget-body">
-                            @foreach ($sp_sale as $sale)
-                                <div class="beta-sales beta-lists">
-                                    <div class="media beta-sales-item">
-                                        <a class="pull-left" href="product.html"><img
-                                                src="/source/image/product/{{ $sale->image }}" alt=""  style="widht:8rem;height:5rem"></a>
-                                        <div class="media-body">
-                                            {{ $sale->name }}
-                                            <span class="beta-sales-price">{{ $sale->unit_price }}</span>
-                                        </div>
-                                    </div>
 
-                                </div>
-                            @endforeach
-                        </div>
-                    </div> <!-- best sellers widget -->
-                </div>
             </div>
         </div> <!-- #content -->
     </div> <!-- .container -->
